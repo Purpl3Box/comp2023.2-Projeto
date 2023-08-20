@@ -1,7 +1,8 @@
 package comp.src.main;
 
-import comp.src.parser.TypeCompLexer;
-import comp.src.parser.TypeCompParser;
+import comp.src.parser.GramaticaLexer;
+import comp.src.parser.GramaticaParser;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
@@ -9,15 +10,15 @@ import org.antlr.v4.runtime.CommonTokenStream;
 public class MainClass {
     public static void main(String[] args) {
         try {
-        	TypeCompLexer lexer  = new TypeCompLexer(CharStreams.fromFileName("input.txt"));
+        	GramaticaLexer lexer  = new GramaticaLexer(CharStreams.fromFileName("input.txt"));
             CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-            TypeCompParser parser = new TypeCompParser(tokenStream);
+            GramaticaParser parser = new GramaticaParser(tokenStream);
             parser.program();
             System.out.println("Validado com sucesso");
             parser.generateCode();
         }
         catch (Exception err) {
-            System.err.println("Generic Error: " + err.getMessage());
+            System.err.println("Erro: " + err.getMessage());
         }
 
     }

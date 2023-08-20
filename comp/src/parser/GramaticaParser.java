@@ -1,8 +1,13 @@
-// Generated from IsiLang.g4 by ANTLR 4.10.1
+// Generated from Gramatica.g4 by ANTLR 4.13.0
 package comp.src.parser;
 
     import comp.src.datastructures.*;
-    import comp.src.ast.*;
+import comp.src.parser.GramaticaParser.cmdLeContext;
+import comp.src.parser.GramaticaParser.cmdIfContext;
+import comp.src.parser.GramaticaParser.cmdWhileContext;
+import comp.src.parser.GramaticaParser.cmdAtribuiContext;
+import comp.src.parser.GramaticaParser.cmdEscreveContext;
+import comp.src.ast.*;
     import java.util.ArrayList;
     import java.util.List;
     import java.util.Stack;
@@ -17,7 +22,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class TypeCompParser extends Parser {
+public class GramaticaParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -27,18 +32,18 @@ public class TypeCompParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, SINGLETERMOPERATOR=12, OPENPARENTHESIS=13, CLOSEPARENTHESIS=14, 
 		OPENBRACKETS=15, CLOSEBRACKETS=16, SEMICOLON=17, OPERATOR=18, ATTRIBUTION=19, 
-		RELATIONALOPERATOR=20, BOOLEAN=21, IDENTIFIER=22, NUMBER=23, TEXT=24, 
+		RELATIONALOPERATOR=20, IDENTIFIER=22, NUMBER=23, TEXT=24, 
 		COMMA=25, DOUBLEQUOTE=26, WHITESPACE=27;
 	public static final int
 		RULE_program = 0, RULE_declaration = 1, RULE_declarationStatement = 2, 
-		RULE_block = 3, RULE_command = 4, RULE_commandread = 5, RULE_commandwrite = 6, 
-		RULE_commandattrib = 7, RULE_commandif = 8, RULE_commandwhile = 9, RULE_expression = 10, 
+		RULE_block = 3, RULE_command = 4, RULE_cmdLe = 5, RULE_cmdEscreve = 6, 
+		RULE_cmdAtribui = 7, RULE_cmdIf = 8, RULE_cmdWhile = 9, RULE_exp = 10, 
 		RULE_term = 11, RULE_type = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "declaration", "declarationStatement", "block", "command", 
-			"commandread", "commandwrite", "commandattrib", "commandif", "commandwhile", 
-			"expression", "term", "type"
+			"cmdLe", "cmdEscreve", "cmdAtribui", "cmdIf", "cmdWhile", 
+			"exp", "term", "type"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -46,7 +51,7 @@ public class TypeCompParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'programa'", "'fimprog;'", "'declara'", "'leia'", "'escreva'", 
-			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", "'booleano'", 
+			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", 
 			null, "'('", "')'", "'{'", "'}'", "';'", null, "'='", null, null, null, 
 			null, null, "','", "'\"'"
 		};
@@ -57,7 +62,7 @@ public class TypeCompParser extends Parser {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			"SINGLETERMOPERATOR", "OPENPARENTHESIS", "CLOSEPARENTHESIS", "OPENBRACKETS", 
 			"CLOSEBRACKETS", "SEMICOLON", "OPERATOR", "ATTRIBUTION", "RELATIONALOPERATOR", 
-			"BOOLEAN", "IDENTIFIER", "NUMBER", "TEXT", "COMMA", "DOUBLEQUOTE", "WHITESPACE"
+			"IDENTIFIER", "NUMBER", "TEXT", "COMMA", "DOUBLEQUOTE", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -95,7 +100,7 @@ public class TypeCompParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "IsiLang.g4"; }
+	public String getGrammarFileName() { return "Gramatica.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -111,23 +116,23 @@ public class TypeCompParser extends Parser {
 	    private String _varName;
 	    private String _varValue;
 	    private List<String> _unusedVariables = new ArrayList<String>();
-	    private TypeCompSymbol symbol;
-	    private TypeCompSymbolTable symbolTable = new TypeCompSymbolTable();
+	    private Simbolos symbol;
+	    private SimbolosTable symbolTable = new SimbolosTable();
 
 	    //Generate code variables start
 
-	    private IsiProgram program = new IsiProgram();
+	    private Program program = new Program();
 	    private ArrayList<AbstractCommand> currentThread;
 
-	    private Stack<ArrayList<AbstractCommand>> allCommands = new Stack<ArrayList<AbstractCommand>>();
+	    private Stack<ArrayList<AbstractCommand>> allcomandos = new Stack<ArrayList<AbstractCommand>>();
 
 	    private String _commandId;
-	    private String _expressionId;
-	    private String _expressionContent;
-	    private Stack<String> _expressionConditionStack = new Stack<String>();
-	    private String _expressionCondition;
-	    private String _expressionWhileCondition;
-	    private Stack<String> _expressionWhileConditionStack = new Stack<String>();
+	    private String _expId;
+	    private String _expContent;
+	    private Stack<String> _expcondicaoStack = new Stack<String>();
+	    private String _expcondicao;
+	    private String _expWhilecondicao;
+	    private Stack<String> _expWhilecondicaoStack = new Stack<String>();
 	    private ArrayList<AbstractCommand> TipoLista;
 	    private ArrayList<AbstractCommand> NaoLista;
 	    private ArrayList<AbstractCommand> whileList;
@@ -136,7 +141,7 @@ public class TypeCompParser extends Parser {
 
 
 	    public void exibeComandos(){
-	        for (AbstractCommand c : program.getCommands()){
+	        for (AbstractCommand c : program.getcomandos()){
 	             System.out.println(c);
 	        }
 	    }
@@ -150,12 +155,12 @@ public class TypeCompParser extends Parser {
 	       }
 	    }
 	    public void verifyType(String id, int type) throws Exception{
-	       if (((TypeCompVariable) symbolTable.get(id)).getType() != type){
+	       if (((Variaveis) symbolTable.get(id)).getType() != type){
 	           throw new Exception("Symbol "+id+" has wrong type");
 	       }
 	    }
 
-	public TypeCompParser(TokenStream input) {
+	public GramaticaParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -173,11 +178,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterProgram(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitProgram(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitProgram(this);
 		}
 	}
 
@@ -197,7 +202,7 @@ public class TypeCompParser extends Parser {
 			match(T__1);
 
 			    program.setVartable(symbolTable);
-			    program.setCommands(allCommands.pop());
+			    program.setcomandos(allcomandos.pop());
 			    if(_unusedVariables.size() > 0){
 			        System.err.println("Unused variables: "+_unusedVariables);
 			    }
@@ -228,11 +233,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_declaration; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterDeclaration(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitDeclaration(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclaration(this);
 		}
 	}
 
@@ -274,14 +279,14 @@ public class TypeCompParser extends Parser {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
-		public List<TerminalNode> IDENTIFIER() { return getTokens(TypeCompParser.IDENTIFIER); }
+		public List<TerminalNode> IDENTIFIER() { return getTokens(GramaticaParser.IDENTIFIER); }
 		public TerminalNode IDENTIFIER(int i) {
-			return getToken(TypeCompParser.IDENTIFIER, i);
+			return getToken(GramaticaParser.IDENTIFIER, i);
 		}
-		public TerminalNode SEMICOLON() { return getToken(TypeCompParser.SEMICOLON, 0); }
-		public List<TerminalNode> COMMA() { return getTokens(TypeCompParser.COMMA); }
+		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(GramaticaParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(TypeCompParser.COMMA, i);
+			return getToken(GramaticaParser.COMMA, i);
 		}
 		public DeclarationStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -289,11 +294,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_declarationStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterDeclarationStatement(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclarationStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitDeclarationStatement(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclarationStatement(this);
 		}
 	}
 
@@ -313,7 +318,7 @@ public class TypeCompParser extends Parser {
 
 				                  _varName = _input.LT(-1).getText();
 				                  _varValue = null;
-				                  symbol = new TypeCompVariable(_varName, _type, _varValue);
+				                  symbol = new Variaveis(_varName, _type, _varValue);
 				                  if (!symbolTable.exists(_varName)){
 				                     symbolTable.add(symbol);
 				                     _unusedVariables.add(_varName);
@@ -335,7 +340,7 @@ public class TypeCompParser extends Parser {
 
 					                  _varName = _input.LT(-1).getText();
 					                  _varValue = null;
-					                  symbol = new TypeCompVariable(_varName, _type, _varValue);
+					                  symbol = new Variaveis(_varName, _type, _varValue);
 					                  if (!symbolTable.exists(_varName)){
 					                    symbolTable.add(symbol);
 					                    _unusedVariables.add(_varName);
@@ -378,11 +383,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_block; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterBlock(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterBlock(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitBlock(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitBlock(this);
 		}
 	}
 
@@ -395,7 +400,7 @@ public class TypeCompParser extends Parser {
 			{
 
 			    currentThread = new ArrayList<AbstractCommand>();
-			    allCommands.push(currentThread);
+			    allcomandos.push(currentThread);
 
 			setState(53); 
 			_errHandler.sync(this);
@@ -425,20 +430,20 @@ public class TypeCompParser extends Parser {
 	}
 
 	public static class CommandContext extends ParserRuleContext {
-		public CommandreadContext commandread() {
-			return getRuleContext(CommandreadContext.class,0);
+		public cmdLeContext cmdLe() {
+			return getRuleContext(cmdLeContext.class,0);
 		}
-		public CommandwriteContext commandwrite() {
-			return getRuleContext(CommandwriteContext.class,0);
+		public cmdEscreveContext cmdEscreve() {
+			return getRuleContext(cmdEscreveContext.class,0);
 		}
-		public CommandattribContext commandattrib() {
-			return getRuleContext(CommandattribContext.class,0);
+		public cmdAtribuiContext cmdAtribui() {
+			return getRuleContext(cmdAtribuiContext.class,0);
 		}
-		public CommandifContext commandif() {
-			return getRuleContext(CommandifContext.class,0);
+		public cmdIfContext cmdIf() {
+			return getRuleContext(cmdIfContext.class,0);
 		}
-		public CommandwhileContext commandwhile() {
-			return getRuleContext(CommandwhileContext.class,0);
+		public cmdWhileContext cmdWhile() {
+			return getRuleContext(cmdWhileContext.class,0);
 		}
 		public CommandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -446,11 +451,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_command; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommand(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCommand(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommand(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCommand(this);
 		}
 	}
 
@@ -465,35 +470,35 @@ public class TypeCompParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(57);
-				commandread();
+				cmdLe();
 				}
 				break;
 			case T__4:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(58);
-				commandwrite();
+				cmdEscreve();
 				}
 				break;
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(59);
-				commandattrib();
+				cmdAtribui();
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(60);
-				commandif();
+				cmdIf();
 				}
 				break;
 			case T__7:
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(61);
-				commandwhile();
+				cmdWhile();
 				}
 				break;
 			default:
@@ -511,28 +516,28 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CommandreadContext extends ParserRuleContext {
-		public TerminalNode OPENPARENTHESIS() { return getToken(TypeCompParser.OPENPARENTHESIS, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(TypeCompParser.IDENTIFIER, 0); }
-		public TerminalNode CLOSEPARENTHESIS() { return getToken(TypeCompParser.CLOSEPARENTHESIS, 0); }
-		public TerminalNode SEMICOLON() { return getToken(TypeCompParser.SEMICOLON, 0); }
-		public CommandreadContext(ParserRuleContext parent, int invokingState) {
+	public static class cmdLeContext extends ParserRuleContext {
+		public TerminalNode OPENPARENTHESIS() { return getToken(GramaticaParser.OPENPARENTHESIS, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GramaticaParser.IDENTIFIER, 0); }
+		public TerminalNode CLOSEPARENTHESIS() { return getToken(GramaticaParser.CLOSEPARENTHESIS, 0); }
+		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
+		public cmdLeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commandread; }
+		@Override public int getRuleIndex() { return RULE_cmdLe; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommandread(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).entercmdLe(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommandread(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitcmdLe(this);
 		}
 	}
 
-	public final CommandreadContext commandread() throws Exception {
-		CommandreadContext _localctx = new CommandreadContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_commandread);
+	public final cmdLeContext cmdLe() throws Exception {
+		cmdLeContext _localctx = new cmdLeContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_cmdLe);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -551,9 +556,9 @@ public class TypeCompParser extends Parser {
 			setState(69);
 			match(SEMICOLON);
 
-			                    TypeCompVariable var = (TypeCompVariable) symbolTable.get(_commandId);
-			                    CommandRead command = new CommandRead(_commandId, var);
-			                    allCommands.peek().add(command);
+			                    Variaveis var = (Variaveis) symbolTable.get(_commandId);
+								cmdLe command = new cmdLe(_commandId, var);
+			                    allcomandos.peek().add(command);
 			               
 			}
 		}
@@ -568,28 +573,28 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CommandwriteContext extends ParserRuleContext {
-		public TerminalNode OPENPARENTHESIS() { return getToken(TypeCompParser.OPENPARENTHESIS, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(TypeCompParser.IDENTIFIER, 0); }
-		public TerminalNode CLOSEPARENTHESIS() { return getToken(TypeCompParser.CLOSEPARENTHESIS, 0); }
-		public TerminalNode SEMICOLON() { return getToken(TypeCompParser.SEMICOLON, 0); }
-		public CommandwriteContext(ParserRuleContext parent, int invokingState) {
+	public static class cmdEscreveContext extends ParserRuleContext {
+		public TerminalNode OPENPARENTHESIS() { return getToken(GramaticaParser.OPENPARENTHESIS, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GramaticaParser.IDENTIFIER, 0); }
+		public TerminalNode CLOSEPARENTHESIS() { return getToken(GramaticaParser.CLOSEPARENTHESIS, 0); }
+		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
+		public cmdEscreveContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commandwrite; }
+		@Override public int getRuleIndex() { return RULE_cmdEscreve; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommandwrite(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).entercmdEscreve(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommandwrite(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitcmdEscreve(this);
 		}
 	}
 
-	public final CommandwriteContext commandwrite() throws Exception {
-		CommandwriteContext _localctx = new CommandwriteContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_commandwrite);
+	public final cmdEscreveContext cmdEscreve() throws Exception {
+		cmdEscreveContext _localctx = new cmdEscreveContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_cmdEscreve);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -608,8 +613,8 @@ public class TypeCompParser extends Parser {
 			setState(77);
 			match(SEMICOLON);
 
-			                            CommandWrite command = new CommandWrite(_commandId);
-			                            allCommands.peek().add(command);
+			                            cmdEscreve command = new cmdEscreve(_commandId);
+			                            allcomandos.peek().add(command);
 			                        
 			}
 		}
@@ -624,30 +629,30 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CommandattribContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(TypeCompParser.IDENTIFIER, 0); }
-		public TerminalNode ATTRIBUTION() { return getToken(TypeCompParser.ATTRIBUTION, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+	public static class cmdAtribuiContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(GramaticaParser.IDENTIFIER, 0); }
+		public TerminalNode ATTRIBUTION() { return getToken(GramaticaParser.ATTRIBUTION, 0); }
+		public expContext exp() {
+			return getRuleContext(expContext.class,0);
 		}
-		public TerminalNode SEMICOLON() { return getToken(TypeCompParser.SEMICOLON, 0); }
-		public CommandattribContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
+		public cmdAtribuiContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commandattrib; }
+		@Override public int getRuleIndex() { return RULE_cmdAtribui; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommandattrib(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).entercmdAtribui(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommandattrib(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitcmdAtribui(this);
 		}
 	}
 
-	public final CommandattribContext commandattrib() throws Exception {
-		CommandattribContext _localctx = new CommandattribContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_commandattrib);
+	public final cmdAtribuiContext cmdAtribui() throws Exception {
+		cmdAtribuiContext _localctx = new cmdAtribuiContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_cmdAtribui);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -657,19 +662,19 @@ public class TypeCompParser extends Parser {
 			                   _varName = _input.LT(-1).getText();
 			                   verifyID(_varName);
 			                   _unusedVariables.remove(_varName);
-			                   _expressionId = _varName;
+			                   _expId = _varName;
 			               
 			setState(82);
 			match(ATTRIBUTION);
-			 _expressionContent = ""; 
+			 _expContent = ""; 
 			setState(84);
-			expression();
+			exp();
 			setState(85);
 			match(SEMICOLON);
 
 			                   verifyType(_varName, _type);
-			                   CommandAttrib command = new CommandAttrib(_expressionId, _expressionContent);
-			                   allCommands.peek().add(command);
+			                   cmdAtribui command = new cmdAtribui(_expId, _expContent);
+			                   allcomandos.peek().add(command);
 			               
 			}
 		}
@@ -684,20 +689,16 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CommandifContext extends ParserRuleContext {
-		public TerminalNode OPENPARENTHESIS() { return getToken(TypeCompParser.OPENPARENTHESIS, 0); }
-		public TerminalNode CLOSEPARENTHESIS() { return getToken(TypeCompParser.CLOSEPARENTHESIS, 0); }
-		public List<TerminalNode> OPENBRACKETS() { return getTokens(TypeCompParser.OPENBRACKETS); }
+	public static class cmdIfContext extends ParserRuleContext {
+		public TerminalNode OPENPARENTHESIS() { return getToken(GramaticaParser.OPENPARENTHESIS, 0); }
+		public TerminalNode CLOSEPARENTHESIS() { return getToken(GramaticaParser.CLOSEPARENTHESIS, 0); }
+		public List<TerminalNode> OPENBRACKETS() { return getTokens(GramaticaParser.OPENBRACKETS); }
 		public TerminalNode OPENBRACKETS(int i) {
-			return getToken(TypeCompParser.OPENBRACKETS, i);
+			return getToken(GramaticaParser.OPENBRACKETS, i);
 		}
-		public List<TerminalNode> CLOSEBRACKETS() { return getTokens(TypeCompParser.CLOSEBRACKETS); }
+		public List<TerminalNode> CLOSEBRACKETS() { return getTokens(GramaticaParser.CLOSEBRACKETS); }
 		public TerminalNode CLOSEBRACKETS(int i) {
-			return getToken(TypeCompParser.CLOSEBRACKETS, i);
-		}
-		public List<TerminalNode> BOOLEAN() { return getTokens(TypeCompParser.BOOLEAN); }
-		public TerminalNode BOOLEAN(int i) {
-			return getToken(TypeCompParser.BOOLEAN, i);
+			return getToken(GramaticaParser.CLOSEBRACKETS, i);
 		}
 		public List<CommandContext> command() {
 			return getRuleContexts(CommandContext.class);
@@ -705,36 +706,36 @@ public class TypeCompParser extends Parser {
 		public CommandContext command(int i) {
 			return getRuleContext(CommandContext.class,i);
 		}
-		public TerminalNode RELATIONALOPERATOR() { return getToken(TypeCompParser.RELATIONALOPERATOR, 0); }
-		public List<TerminalNode> IDENTIFIER() { return getTokens(TypeCompParser.IDENTIFIER); }
+		public TerminalNode RELATIONALOPERATOR() { return getToken(GramaticaParser.RELATIONALOPERATOR, 0); }
+		public List<TerminalNode> IDENTIFIER() { return getTokens(GramaticaParser.IDENTIFIER); }
 		public TerminalNode IDENTIFIER(int i) {
-			return getToken(TypeCompParser.IDENTIFIER, i);
+			return getToken(GramaticaParser.IDENTIFIER, i);
 		}
-		public List<TerminalNode> NUMBER() { return getTokens(TypeCompParser.NUMBER); }
+		public List<TerminalNode> NUMBER() { return getTokens(GramaticaParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
-			return getToken(TypeCompParser.NUMBER, i);
+			return getToken(GramaticaParser.NUMBER, i);
 		}
-		public List<TerminalNode> TEXT() { return getTokens(TypeCompParser.TEXT); }
+		public List<TerminalNode> TEXT() { return getTokens(GramaticaParser.TEXT); }
 		public TerminalNode TEXT(int i) {
-			return getToken(TypeCompParser.TEXT, i);
+			return getToken(GramaticaParser.TEXT, i);
 		}
-		public CommandifContext(ParserRuleContext parent, int invokingState) {
+		public cmdIfContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commandif; }
+		@Override public int getRuleIndex() { return RULE_cmdIf; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommandif(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).entercmdIf(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommandif(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitcmdIf(this);
 		}
 	}
 
-	public final CommandifContext commandif() throws Exception {
-		CommandifContext _localctx = new CommandifContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_commandif);
+	public final cmdIfContext cmdIf() throws Exception {
+		cmdIfContext _localctx = new cmdIfContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_cmdIf);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -751,7 +752,7 @@ public class TypeCompParser extends Parser {
 				{
 				setState(90);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -760,14 +761,14 @@ public class TypeCompParser extends Parser {
 					consume();
 				}
 
-				                    _expressionCondition = _input.LT(-1).getText();
+				                    _expcondicao = _input.LT(-1).getText();
 				                
 				setState(92);
 				match(RELATIONALOPERATOR);
-				 _expressionCondition += _input.LT(-1).getText(); 
+				 _expcondicao += _input.LT(-1).getText(); 
 				setState(94);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -775,28 +776,27 @@ public class TypeCompParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				 _expressionCondition += _input.LT(-1).getText(); 
+				 _expcondicao += _input.LT(-1).getText(); 
 				}
 				}
 				break;
 			case 2:
 				{
 				setState(96);
-				match(BOOLEAN);
-				 _expressionCondition = _input.LT(-1).getText(); 
+				 _expcondicao = _input.LT(-1).getText(); 
 				}
 				break;
 			}
 			setState(100);
 			match(CLOSEPARENTHESIS);
 
-			                    _expressionConditionStack.push(_expressionCondition);
+			                    _expcondicaoStack.push(_expcondicao);
 			                
 			setState(102);
 			match(OPENBRACKETS);
 
 			                    currentThread = new ArrayList<AbstractCommand>();
-			                    allCommands.push(currentThread);
+			                    allcomandos.push(currentThread);
 			                
 			setState(105); 
 			_errHandler.sync(this);
@@ -815,7 +815,7 @@ public class TypeCompParser extends Parser {
 			setState(109);
 			match(CLOSEBRACKETS);
 
-			                    TipoLista = allCommands.pop();
+			                    TipoLista = allcomandos.pop();
 			                
 			setState(122);
 			_errHandler.sync(this);
@@ -828,7 +828,7 @@ public class TypeCompParser extends Parser {
 				match(OPENBRACKETS);
 
 				                      currentThread = new ArrayList<AbstractCommand>();
-				                      allCommands.push(currentThread);
+				                      allcomandos.push(currentThread);
 				                  
 				setState(115); 
 				_errHandler.sync(this);
@@ -847,17 +847,17 @@ public class TypeCompParser extends Parser {
 				setState(119);
 				match(CLOSEBRACKETS);
 
-				                      NaoLista = allCommands.pop();
-				                      CommandIf command = new CommandIf(_expressionConditionStack.pop(), TipoLista, NaoLista);
-				                      allCommands.peek().add(command);
+				                      NaoLista = allcomandos.pop();
+				                      cmdIf command = new cmdIf(_expcondicaoStack.pop(), TipoLista, NaoLista);
+				                      allcomandos.peek().add(command);
 				                  
 				}
 			}
 
 
 			                      if(NaoLista == null){
-			                          CommandIf command = new CommandIf(_expressionConditionStack.pop(), TipoLista, new ArrayList<AbstractCommand>());
-			                          allCommands.peek().add(command);
+									cmdIf command = new cmdIf(_expcondicaoStack.pop(), TipoLista, new ArrayList<AbstractCommand>());
+			                          allcomandos.peek().add(command);
 			                      }
 			                      NaoLista = null;
 			                
@@ -874,51 +874,47 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class CommandwhileContext extends ParserRuleContext {
-		public TerminalNode OPENPARENTHESIS() { return getToken(TypeCompParser.OPENPARENTHESIS, 0); }
-		public TerminalNode CLOSEPARENTHESIS() { return getToken(TypeCompParser.CLOSEPARENTHESIS, 0); }
-		public TerminalNode OPENBRACKETS() { return getToken(TypeCompParser.OPENBRACKETS, 0); }
-		public TerminalNode CLOSEBRACKETS() { return getToken(TypeCompParser.CLOSEBRACKETS, 0); }
-		public List<TerminalNode> BOOLEAN() { return getTokens(TypeCompParser.BOOLEAN); }
-		public TerminalNode BOOLEAN(int i) {
-			return getToken(TypeCompParser.BOOLEAN, i);
-		}
+	public static class cmdWhileContext extends ParserRuleContext {
+		public TerminalNode OPENPARENTHESIS() { return getToken(GramaticaParser.OPENPARENTHESIS, 0); }
+		public TerminalNode CLOSEPARENTHESIS() { return getToken(GramaticaParser.CLOSEPARENTHESIS, 0); }
+		public TerminalNode OPENBRACKETS() { return getToken(GramaticaParser.OPENBRACKETS, 0); }
+		public TerminalNode CLOSEBRACKETS() { return getToken(GramaticaParser.CLOSEBRACKETS, 0); }
 		public List<CommandContext> command() {
 			return getRuleContexts(CommandContext.class);
 		}
 		public CommandContext command(int i) {
 			return getRuleContext(CommandContext.class,i);
 		}
-		public TerminalNode RELATIONALOPERATOR() { return getToken(TypeCompParser.RELATIONALOPERATOR, 0); }
-		public List<TerminalNode> IDENTIFIER() { return getTokens(TypeCompParser.IDENTIFIER); }
+		public TerminalNode RELATIONALOPERATOR() { return getToken(GramaticaParser.RELATIONALOPERATOR, 0); }
+		public List<TerminalNode> IDENTIFIER() { return getTokens(GramaticaParser.IDENTIFIER); }
 		public TerminalNode IDENTIFIER(int i) {
-			return getToken(TypeCompParser.IDENTIFIER, i);
+			return getToken(GramaticaParser.IDENTIFIER, i);
 		}
-		public List<TerminalNode> NUMBER() { return getTokens(TypeCompParser.NUMBER); }
+		public List<TerminalNode> NUMBER() { return getTokens(GramaticaParser.NUMBER); }
 		public TerminalNode NUMBER(int i) {
-			return getToken(TypeCompParser.NUMBER, i);
+			return getToken(GramaticaParser.NUMBER, i);
 		}
-		public List<TerminalNode> TEXT() { return getTokens(TypeCompParser.TEXT); }
+		public List<TerminalNode> TEXT() { return getTokens(GramaticaParser.TEXT); }
 		public TerminalNode TEXT(int i) {
-			return getToken(TypeCompParser.TEXT, i);
+			return getToken(GramaticaParser.TEXT, i);
 		}
-		public CommandwhileContext(ParserRuleContext parent, int invokingState) {
+		public cmdWhileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_commandwhile; }
+		@Override public int getRuleIndex() { return RULE_cmdWhile; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterCommandwhile(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).entercmdWhile(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitCommandwhile(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitcmdWhile(this);
 		}
 	}
 
-	public final CommandwhileContext commandwhile() throws Exception {
-		CommandwhileContext _localctx = new CommandwhileContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_commandwhile);
+	public final cmdWhileContext cmdWhile() throws Exception {
+		cmdWhileContext _localctx = new cmdWhileContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_cmdWhile);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -935,7 +931,7 @@ public class TypeCompParser extends Parser {
 				{
 				setState(128);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -943,13 +939,13 @@ public class TypeCompParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				 _expressionWhileCondition = _input.LT(-1).getText(); 
+				 _expWhilecondicao = _input.LT(-1).getText(); 
 				setState(130);
 				match(RELATIONALOPERATOR);
-				 _expressionWhileCondition += _input.LT(-1).getText(); 
+				 _expWhilecondicao += _input.LT(-1).getText(); 
 				setState(132);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L) | (1L << IDENTIFIER) | (1L << NUMBER) | (1L << TEXT))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -957,28 +953,27 @@ public class TypeCompParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				 _expressionWhileCondition += _input.LT(-1).getText(); 
+				 _expWhilecondicao += _input.LT(-1).getText(); 
 				}
 				}
 				break;
 			case 2:
 				{
 				setState(134);
-				match(BOOLEAN);
-				 _expressionWhileCondition = _input.LT(-1).getText(); 
+				 _expWhilecondicao = _input.LT(-1).getText(); 
 				}
 				break;
 			}
 			setState(138);
 			match(CLOSEPARENTHESIS);
 
-			                     _expressionWhileConditionStack.push(_expressionWhileCondition);
+			                     _expWhilecondicaoStack.push(_expWhilecondicao);
 			                
 			setState(140);
 			match(OPENBRACKETS);
 
 			                    currentThread = new ArrayList<AbstractCommand>();
-			                    allCommands.push(currentThread);
+			                    allcomandos.push(currentThread);
 			                
 			setState(143); 
 			_errHandler.sync(this);
@@ -997,9 +992,9 @@ public class TypeCompParser extends Parser {
 			setState(147);
 			match(CLOSEBRACKETS);
 
-			                    whileList = allCommands.pop();
-			                    CommandWhile command = new CommandWhile(_expressionWhileConditionStack.pop(), whileList);
-			                    allCommands.peek().add(command);
+			                    whileList = allcomandos.pop();
+			                    cmdWhile command = new cmdWhile(_expWhilecondicaoStack.pop(), whileList);
+			                    allcomandos.peek().add(command);
 			                
 			}
 		}
@@ -1014,38 +1009,37 @@ public class TypeCompParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ExpressionContext extends ParserRuleContext {
+	public static class expContext extends ParserRuleContext {
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
-		public TerminalNode OPERATOR() { return getToken(TypeCompParser.OPERATOR, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public TerminalNode OPERATOR() { return getToken(GramaticaParser.OPERATOR, 0); }
+		public expContext exp() {
+			return getRuleContext(expContext.class,0);
 		}
-		public TerminalNode SINGLETERMOPERATOR() { return getToken(TypeCompParser.SINGLETERMOPERATOR, 0); }
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode SINGLETERMOPERATOR() { return getToken(GramaticaParser.SINGLETERMOPERATOR, 0); }
+		public expContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override public int getRuleIndex() { return RULE_exp; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterExpression(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterexp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitExpression(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitexp(this);
 		}
 	}
 
-	public final ExpressionContext expression() throws Exception {
-		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_expression);
+	public final expContext exp() throws Exception {
+		expContext _localctx = new expContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_exp);
 		int _la;
 		try {
 			setState(164);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case BOOLEAN:
 			case IDENTIFIER:
 			case NUMBER:
 			case TEXT:
@@ -1060,9 +1054,9 @@ public class TypeCompParser extends Parser {
 					{
 					setState(151);
 					match(OPERATOR);
-					 _expressionContent += _input.LT(-1).getText(); 
+					 _expContent += _input.LT(-1).getText(); 
 					setState(153);
-					expression();
+					exp();
 					}
 				}
 
@@ -1073,7 +1067,7 @@ public class TypeCompParser extends Parser {
 				{
 				setState(156);
 				match(SINGLETERMOPERATOR);
-				 _expressionContent += _input.LT(-1).getText(); 
+				 _expContent += _input.LT(-1).getText(); 
 				setState(158);
 				term();
 				setState(162);
@@ -1083,9 +1077,9 @@ public class TypeCompParser extends Parser {
 					{
 					setState(159);
 					match(OPERATOR);
-					 _expressionContent += _input.LT(-1).getText(); 
+					 _expContent += _input.LT(-1).getText(); 
 					setState(161);
-					expression();
+					exp();
 					}
 				}
 
@@ -1107,21 +1101,20 @@ public class TypeCompParser extends Parser {
 	}
 
 	public static class TermContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(TypeCompParser.IDENTIFIER, 0); }
-		public TerminalNode NUMBER() { return getToken(TypeCompParser.NUMBER, 0); }
-		public TerminalNode TEXT() { return getToken(TypeCompParser.TEXT, 0); }
-		public TerminalNode BOOLEAN() { return getToken(TypeCompParser.BOOLEAN, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(GramaticaParser.IDENTIFIER, 0); }
+		public TerminalNode NUMBER() { return getToken(GramaticaParser.NUMBER, 0); }
+		public TerminalNode TEXT() { return getToken(GramaticaParser.TEXT, 0); }
 		public TermContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_term; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterTerm(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterTerm(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitTerm(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitTerm(this);
 		}
 	}
 
@@ -1138,8 +1131,8 @@ public class TypeCompParser extends Parser {
 				setState(166);
 				match(IDENTIFIER);
 				 verifyID(_input.LT(-1).getText());
-				                  _type = ((TypeCompVariable) symbolTable.get(_input.LT(-1).getText())).getType();
-				                  _expressionContent += _input.LT(-1).getText();
+				                  _type = ((Variaveis) symbolTable.get(_input.LT(-1).getText())).getType();
+				                  _expContent += _input.LT(-1).getText();
 				                
 				}
 				break;
@@ -1149,8 +1142,8 @@ public class TypeCompParser extends Parser {
 				setState(168);
 				match(NUMBER);
 
-				        _type = TypeCompVariable.NUMBER;
-				        _expressionContent += _input.LT(-1).getText();
+				        _type = Variaveis.NUMBER;
+				        _expContent += _input.LT(-1).getText();
 				    
 				}
 				break;
@@ -1160,19 +1153,8 @@ public class TypeCompParser extends Parser {
 				setState(170);
 				match(TEXT);
 
-				        _type = TypeCompVariable.TEXT;
-				        _expressionContent += _input.LT(-1).getText();
-				    
-				}
-				break;
-			case BOOLEAN:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(172);
-				match(BOOLEAN);
-
-				        _type = TypeCompVariable.BOOLEAN;
-				        _expressionContent += _input.LT(-1).getText();
+				        _type = Variaveis.TEXT;
+				        _expContent += _input.LT(-1).getText();
 				    
 				}
 				break;
@@ -1198,11 +1180,11 @@ public class TypeCompParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_type; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).enterType(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TypeCompListener ) ((TypeCompListener)listener).exitType(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitType(this);
 		}
 	}
 
@@ -1218,7 +1200,7 @@ public class TypeCompParser extends Parser {
 				{
 				setState(176);
 				match(T__8);
-				_type = TypeCompVariable.TEXT;
+				_type = Variaveis.TEXT;
 				}
 				break;
 			case T__9:
@@ -1226,7 +1208,7 @@ public class TypeCompParser extends Parser {
 				{
 				setState(178);
 				match(T__9);
-				_type = TypeCompVariable.NUMBER;
+				_type = Variaveis.NUMBER;
 				}
 				break;
 			case T__10:
@@ -1234,7 +1216,6 @@ public class TypeCompParser extends Parser {
 				{
 				setState(180);
 				match(T__10);
-				_type = TypeCompVariable.BOOLEAN;
 				}
 				break;
 			default:

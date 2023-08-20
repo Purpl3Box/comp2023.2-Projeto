@@ -1,14 +1,13 @@
 package comp.src.datastructures;
 
-public class TypeCompVariable extends TypeCompSymbol{
+public class Variaveis extends Simbolos{
     public static final int NUMBER = 0;
     public static final int TEXT = 1;
-    public static final int BOOLEAN = 2;
 
     private  int type;
     private String value;
 
-    public TypeCompVariable(String name, int type, String value) {
+    public Variaveis(String name, int type, String value) {
         super(name);
         this.type = type;
         this.value = value;
@@ -27,12 +26,10 @@ public class TypeCompVariable extends TypeCompSymbol{
     }
 
     @Override
-    public String generateJavaCode() {
+    public String GerarCodigo() {
         String varType;
         if (type == NUMBER){
             varType = "double";
-        } else if (type == BOOLEAN) {
-            varType = "boolean";
         } else {
             varType = "String";
         }
@@ -41,7 +38,7 @@ public class TypeCompVariable extends TypeCompSymbol{
 
     @Override
     public String toString() {
-        return "IsiVariable [name=" + name + ", type=" + type + ", value=" + value + "]";
+        return "Variavel [name=" + name + ", type=" + type + ", value=" + value + "]";
     }
 
 

@@ -10,7 +10,7 @@ null
 'enquanto'
 'texto'
 'numero'
-'booleano'
+
 null
 '('
 ')'
@@ -50,7 +50,6 @@ SEMICOLON
 OPERATOR
 ATTRIBUTION
 RELATIONALOPERATOR
-BOOLEAN
 IDENTIFIER
 NUMBER
 TEXT
@@ -64,12 +63,12 @@ declaration
 declarationStatement
 block
 command
-commandread
-commandwrite
-commandattrib
-commandif
-commandwhile
-expression
+cmdLe
+cmdEscreve
+cmdAtribui
+cmdIf
+cmdWhile
+exp
 term
 type
 

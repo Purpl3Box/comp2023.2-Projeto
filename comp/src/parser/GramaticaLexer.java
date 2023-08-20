@@ -1,4 +1,4 @@
-// Generated from IsiLang.g4 by ANTLR 4.10.1
+// Generated from Gramatica.g4 by ANTLR 4.13.0
 package comp.src.parser;
 
     import comp.src.datastructures.*;
@@ -7,17 +7,13 @@ package comp.src.parser;
     import java.util.List;
     import java.util.Stack;
 
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class TypeCompLexer extends Lexer {
+public class GramaticaLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.10.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -27,7 +23,7 @@ public class TypeCompLexer extends Lexer {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, SINGLETERMOPERATOR=12, OPENPARENTHESIS=13, CLOSEPARENTHESIS=14, 
 		OPENBRACKETS=15, CLOSEBRACKETS=16, SEMICOLON=17, OPERATOR=18, ATTRIBUTION=19, 
-		RELATIONALOPERATOR=20, BOOLEAN=21, IDENTIFIER=22, NUMBER=23, TEXT=24, 
+		RELATIONALOPERATOR=20, IDENTIFIER=22, NUMBER=23, TEXT=24, 
 		COMMA=25, DOUBLEQUOTE=26, WHITESPACE=27;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -42,7 +38,7 @@ public class TypeCompLexer extends Lexer {
 			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
 			"T__9", "T__10", "SINGLETERMOPERATOR", "OPENPARENTHESIS", "CLOSEPARENTHESIS", 
 			"OPENBRACKETS", "CLOSEBRACKETS", "SEMICOLON", "OPERATOR", "ATTRIBUTION", 
-			"RELATIONALOPERATOR", "BOOLEAN", "IDENTIFIER", "NUMBER", "TEXT", "COMMA", 
+			"RELATIONALOPERATOR", "IDENTIFIER", "NUMBER", "TEXT", "COMMA", 
 			"DOUBLEQUOTE", "WHITESPACE"
 		};
 	}
@@ -51,7 +47,7 @@ public class TypeCompLexer extends Lexer {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'programa'", "'fimprog;'", "'declara'", "'leia'", "'escreva'", 
-			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", "'booleano'", 
+			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", 
 			null, "'('", "')'", "'{'", "'}'", "';'", null, "'='", null, null, null, 
 			null, null, "','", "'\"'"
 		};
@@ -62,7 +58,7 @@ public class TypeCompLexer extends Lexer {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			"SINGLETERMOPERATOR", "OPENPARENTHESIS", "CLOSEPARENTHESIS", "OPENBRACKETS", 
 			"CLOSEBRACKETS", "SEMICOLON", "OPERATOR", "ATTRIBUTION", "RELATIONALOPERATOR", 
-			"BOOLEAN", "IDENTIFIER", "NUMBER", "TEXT", "COMMA", "DOUBLEQUOTE", "WHITESPACE"
+			"IDENTIFIER", "NUMBER", "TEXT", "COMMA", "DOUBLEQUOTE", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -104,23 +100,23 @@ public class TypeCompLexer extends Lexer {
 	    private String _varName;
 	    private String _varValue;
 	    private List<String> _unusedVariables = new ArrayList<String>();
-	    private TypeCompSymbol symbol;
-	    private TypeCompSymbolTable symbolTable = new TypeCompSymbolTable();
+	    private Simbolos symbol;
+	    private SimbolosTable symbolTable = new SimbolosTable();
 
 	    //Generate code variables start
 
-	    private IsiProgram program = new IsiProgram();
+	    private Program program = new Program();
 	    private ArrayList<AbstractCommand> currentThread;
 
-	    private Stack<ArrayList<AbstractCommand>> allCommands = new Stack<ArrayList<AbstractCommand>>();
+	    private Stack<ArrayList<AbstractCommand>> allcomandos = new Stack<ArrayList<AbstractCommand>>();
 
 	    private String _commandId;
-	    private String _expressionId;
-	    private String _expressionContent;
-	    private Stack<String> _expressionConditionStack = new Stack<String>();
-	    private String _expressionCondition;
-	    private String _expressionWhileCondition;
-	    private Stack<String> _expressionWhileConditionStack = new Stack<String>();
+	    private String _expId;
+	    private String _expContent;
+	    private Stack<String> _expcondicaoStack = new Stack<String>();
+	    private String _expcondicao;
+	    private String _expWhilecondicao;
+	    private Stack<String> _expWhilecondicaoStack = new Stack<String>();
 	    private ArrayList<AbstractCommand> TipoLista;
 	    private ArrayList<AbstractCommand> NaoLista;
 	    private ArrayList<AbstractCommand> whileList;
@@ -129,7 +125,7 @@ public class TypeCompLexer extends Lexer {
 
 
 	    public void exibeComandos(){
-	        for (AbstractCommand c : program.getCommands()){
+	        for (AbstractCommand c : program.getcomandos()){
 	             System.out.println(c);
 	        }
 	    }
@@ -143,19 +139,19 @@ public class TypeCompLexer extends Lexer {
 	       }
 	    }
 	    public void verifyType(String id, int type) throws Exception{
-	       if (((TypeCompVariable) symbolTable.get(id)).getType() != type){
+	       if (((Variaveis) symbolTable.get(id)).getType() != type){
 	           throw new Exception("Symbol "+id+" has wrong type");
 	       }
 	    }
 
 
-	public TypeCompLexer(CharStream input) {
+	public GramaticaLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "IsiLang.g4"; }
+	public String getGrammarFileName() { return "Gramatica.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

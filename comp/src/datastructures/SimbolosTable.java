@@ -3,18 +3,18 @@ package comp.src.datastructures;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TypeCompSymbolTable {
-    private HashMap<String, TypeCompSymbol> symbols;
+public class SimbolosTable {
+    private HashMap<String, Simbolos> symbols;
 
-    public TypeCompSymbolTable() {
-        symbols = new HashMap<String, TypeCompSymbol>();
+    public SimbolosTable() {
+        symbols = new HashMap<String, Simbolos>();
     }
 
-    public void add(TypeCompSymbol symbol) {
+    public void add(Simbolos symbol) {
         symbols.put(symbol.getName(), symbol);
     }
 
-    public TypeCompSymbol get(String name) {
+    public Simbolos get(String name) {
         return symbols.get(name);
     }
 
@@ -22,7 +22,7 @@ public class TypeCompSymbolTable {
         return symbols.containsKey(name);
     }
 
-    public ArrayList<TypeCompSymbol> getAll() {
+    public ArrayList<Simbolos> getAll() {
         return new ArrayList<>(symbols.values());
     }
 }

@@ -2,29 +2,29 @@ package comp.src.ast;
 
 import java.util.ArrayList;
 
-public class CommandIf extends AbstractCommand {
+public class cmdIf extends AbstractCommand {
 
-    private String condition;
+    private String condicao;
     private ArrayList<AbstractCommand> TipoLista;
     private ArrayList<AbstractCommand> NaoLista;
 
-    public CommandIf(String condition, ArrayList<AbstractCommand> TipoLista, ArrayList<AbstractCommand> NaoLista) {
-        this.condition = condition;
+    public cmdIf(String condicao, ArrayList<AbstractCommand> TipoLista, ArrayList<AbstractCommand> NaoLista) {
+        this.condicao = condicao;
         this.TipoLista = TipoLista;
         this.NaoLista = NaoLista;
     }
 
     @Override
-    public String generateJavaCode() {
+    public String GerarCodigo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("if (");
-        stringBuilder.append(condition);
+        stringBuilder.append(condicao);
         stringBuilder.append(") {\n");
-        TipoLista.forEach(command -> stringBuilder.append(command.generateJavaCode() + "\n"));
+        TipoLista.forEach(command -> stringBuilder.append(command.GerarCodigo() + "\n"));
         stringBuilder.append("}\n");
         if(!NaoLista.isEmpty()) {
             stringBuilder.append("else {\n");
-            NaoLista.forEach(command -> stringBuilder.append(command.generateJavaCode() + "\n"));
+            NaoLista.forEach(command -> stringBuilder.append(command.GerarCodigo() + "\n"));
             stringBuilder.append("}\n");
         }
 
@@ -33,8 +33,8 @@ public class CommandIf extends AbstractCommand {
 
     @Override
     public String toString() {
-        return "CommandIf{" +
-                "condition='" + condition + '\'' +
+        return "cmdIf{" +
+                "condicao='" + condicao + '\'' +
                 ", TipoLista=" + TipoLista +
                 ", NaoLista=" + NaoLista +
                 '}';

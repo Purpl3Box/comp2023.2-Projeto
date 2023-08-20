@@ -1,10 +1,11 @@
 import java.util.Scanner;
-public class GeneratedMainClass {
+public class Output {
 public static void main(String args[]){
 Scanner _keyScanner = new Scanner(System.in);
-double e;
-e =1;
-System.out.println(e);
-
+double b;
+String t1;
+t1 ="compiladores forever";b =22;while (b>0) {
+System.out.println(t1);
+}
 }
 }

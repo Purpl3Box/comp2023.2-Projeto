@@ -1,32 +1,29 @@
 package comp.src.ast;
 
-import comp.src.datastructures.TypeCompSymbol;
-import comp.src.datastructures.TypeCompSymbolTable;
+import comp.src.datastructures.Simbolos;
+import comp.src.datastructures.SimbolosTable;
+import comp.src.datastructures.SimbolosTable;
+import comp.src.datastructures.Simbolos;
+import comp.src.datastructures.SimbolosTable;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class IsiProgram {
-    private TypeCompSymbolTable vartable;
-    private ArrayList<AbstractCommand> commands;
+public class Program {
+    private SimbolosTable vartable;
+    private ArrayList<AbstractCommand> comandos;
     private String programName;
 
     public void generateTarget(){
-        generateJavaFile();
-        generateCFile();
-    }
-
-    private void generateJavaFile(){
-        String className = "GeneratedMainClass";
+        String className = "Output";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("import java.util.Scanner;\n");
         stringBuilder.append("public class " + className + " {\n");
         stringBuilder.append("public static void main(String args[]){\n");
         stringBuilder.append("Scanner _keyScanner = new Scanner(System.in);\n");
-        vartable.getAll().forEach(TypeCompSymbol -> stringBuilder.append(TypeCompSymbol.generateJavaCode() + "\n"));
-        commands.forEach(command -> stringBuilder.append(command.generateJavaCode() + "\n"));
-        stringBuilder.append("\n");
+        vartable.getAll().forEach(Simbolos -> stringBuilder.append(Simbolos.GerarCodigo() + "\n"));
+        comandos.forEach(command -> stringBuilder.append(command.GerarCodigo()+"\n"));
         stringBuilder.append("}\n");
         stringBuilder.append("}\n");
 
@@ -39,28 +36,20 @@ public class IsiProgram {
         }
     }
 
-    private void generateCFile(){
-        //TODO
-    }
-
-    public static String convertJavaBoolean(String expression){
-        return expression.replaceAll("Verdadeiro", "true").replaceAll("Falso", "false");
-    }
-
-    public TypeCompSymbolTable getVartable() {
+    public SimbolosTable getVartable() {
         return vartable;
     }
 
-    public void setVartable(TypeCompSymbolTable vartable) {
+    public void setVartable(SimbolosTable vartable) {
         this.vartable = vartable;
     }
 
-    public ArrayList<AbstractCommand> getCommands() {
-        return commands;
+    public ArrayList<AbstractCommand> getcomandos() {
+        return comandos;
     }
 
-    public void setCommands(ArrayList<AbstractCommand> commands) {
-        this.commands = commands;
+    public void setcomandos(ArrayList<AbstractCommand> comandos) {
+        this.comandos = comandos;
     }
 
     public String getProgramName() {

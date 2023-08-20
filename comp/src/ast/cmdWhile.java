@@ -2,23 +2,23 @@ package comp.src.ast;
 
 import java.util.ArrayList;
 
-public class CommandWhile extends AbstractCommand{
+public class cmdWhile extends AbstractCommand{
 
-    private String condition;
+    private String condicao;
     private ArrayList<AbstractCommand> whileList;
 
-    public CommandWhile(String condition, ArrayList<AbstractCommand> whileList) {
-        this.condition = condition;
+    public cmdWhile(String condicao, ArrayList<AbstractCommand> whileList) {
+        this.condicao = condicao;
         this.whileList = whileList;
     }
 
     @Override
-    public String generateJavaCode() {
+    public String GerarCodigo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("while (");
-        stringBuilder.append(condition);
+        stringBuilder.append(condicao);
         stringBuilder.append(") {\n");
-        whileList.forEach(command -> stringBuilder.append(command.generateJavaCode() + "\n"));
+        whileList.forEach(command -> stringBuilder.append(command.GerarCodigo() + "\n"));
         stringBuilder.append("}\n");
 
         return stringBuilder.toString();

@@ -1,7 +1,9 @@
 programa
-
-declara numero e;
-e = 1;
-escreva(e);
-
+declara texto t1;
+declara numero b;
+t1 = "compiladores forever";
+b = 22;
+enquanto(b > 0){
+    escreva(t1);
+}
 fimprog;

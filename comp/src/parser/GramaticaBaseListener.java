@@ -1,4 +1,4 @@
-// Generated from IsiLang.g4 by ANTLR 4.10.1
+// Generated from Gramatica.g4 by ANTLR 4.13.0
 package comp.src.parser;
 
     import comp.src.datastructures.*;
@@ -13,167 +13,167 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link TypeCompListener},
+ * This class provides an empty implementation of {@link GramaticaListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class TypeCompBaseListener implements TypeCompListener {
+public class GramaticaBaseListener implements GramaticaListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(TypeCompParser.ProgramContext ctx) { }
+	@Override public void enterProgram(GramaticaParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(TypeCompParser.ProgramContext ctx) { }
+	@Override public void exitProgram(GramaticaParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(TypeCompParser.DeclarationContext ctx) { }
+	@Override public void enterDeclaration(GramaticaParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(TypeCompParser.DeclarationContext ctx) { }
+	@Override public void exitDeclaration(GramaticaParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarationStatement(TypeCompParser.DeclarationStatementContext ctx) { }
+	@Override public void enterDeclarationStatement(GramaticaParser.DeclarationStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarationStatement(TypeCompParser.DeclarationStatementContext ctx) { }
+	@Override public void exitDeclarationStatement(GramaticaParser.DeclarationStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(TypeCompParser.BlockContext ctx) { }
+	@Override public void enterBlock(GramaticaParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(TypeCompParser.BlockContext ctx) { }
+	@Override public void exitBlock(GramaticaParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommand(TypeCompParser.CommandContext ctx) { }
+	@Override public void enterCommand(GramaticaParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommand(TypeCompParser.CommandContext ctx) { }
+	@Override public void exitCommand(GramaticaParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommandread(TypeCompParser.CommandreadContext ctx) { }
+	@Override public void entercmdLe(GramaticaParser.cmdLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommandread(TypeCompParser.CommandreadContext ctx) { }
+	@Override public void exitcmdLe(GramaticaParser.cmdLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommandwrite(TypeCompParser.CommandwriteContext ctx) { }
+	@Override public void entercmdEscreve(GramaticaParser.cmdEscreveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommandwrite(TypeCompParser.CommandwriteContext ctx) { }
+	@Override public void exitcmdEscreve(GramaticaParser.cmdEscreveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommandattrib(TypeCompParser.CommandattribContext ctx) { }
+	@Override public void entercmdAtribui(GramaticaParser.cmdAtribuiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommandattrib(TypeCompParser.CommandattribContext ctx) { }
+	@Override public void exitcmdAtribui(GramaticaParser.cmdAtribuiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommandif(TypeCompParser.CommandifContext ctx) { }
+	@Override public void entercmdIf(GramaticaParser.cmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommandif(TypeCompParser.CommandifContext ctx) { }
+	@Override public void exitcmdIf(GramaticaParser.cmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommandwhile(TypeCompParser.CommandwhileContext ctx) { }
+	@Override public void entercmdWhile(GramaticaParser.cmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommandwhile(TypeCompParser.CommandwhileContext ctx) { }
+	@Override public void exitcmdWhile(GramaticaParser.cmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(TypeCompParser.ExpressionContext ctx) { }
+	@Override public void enterexp(GramaticaParser.expContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(TypeCompParser.ExpressionContext ctx) { }
+	@Override public void exitexp(GramaticaParser.expContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(TypeCompParser.TermContext ctx) { }
+	@Override public void enterTerm(GramaticaParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(TypeCompParser.TermContext ctx) { }
+	@Override public void exitTerm(GramaticaParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(TypeCompParser.TypeContext ctx) { }
+	@Override public void enterType(GramaticaParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(TypeCompParser.TypeContext ctx) { }
+	@Override public void exitType(GramaticaParser.TypeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

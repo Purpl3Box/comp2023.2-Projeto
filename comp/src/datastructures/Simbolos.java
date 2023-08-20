@@ -1,13 +1,13 @@
 package comp.src.datastructures;
 
 
-public abstract class TypeCompSymbol {
+public abstract class Simbolos {
 
     protected String name;
 
-    public abstract String generateJavaCode();
+    public abstract String GerarCodigo();
 
-    public TypeCompSymbol(String name) {
+    public Simbolos(String name) {
         this.name = name;
     }
 
@@ -21,7 +21,7 @@ public abstract class TypeCompSymbol {
 
     @Override
     public String toString() {
-        return "TypeCompSymbol [name=" + name + "]";
+        return "Simbolos [name=" + name + "]";
     }
 
 

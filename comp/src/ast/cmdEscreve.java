@@ -1,21 +1,21 @@
 package comp.src.ast;
 
-public class CommandWrite extends AbstractCommand {
+public class cmdEscreve extends AbstractCommand {
 
     private String id;
 
-    public CommandWrite (String id) {
+    public cmdEscreve (String id) {
         this.id = id;
     }
 
     @Override
-    public String generateJavaCode() {
+    public String GerarCodigo() {
         return "System.out.println(" + id + ");";
     }
 
     @Override
     public String toString() {
-        return "CommandWrite{" +
+        return "cmdEscreve{" +
                 "id='" + id + '\'' +
                 '}';
     }

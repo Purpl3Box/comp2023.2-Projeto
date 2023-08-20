@@ -1,24 +1,23 @@
 package comp.src.ast;
 
-import comp.src.datastructures.TypeCompVariable;
+import comp.src.datastructures.Variaveis;
+import comp.src.datastructures.Variaveis;
 
-public class CommandRead extends AbstractCommand {
+public class cmdLe extends AbstractCommand {
 
     private String id;
-    private TypeCompVariable var;
+    private Variaveis var;
 
-    public CommandRead(String id, TypeCompVariable var) {
+    public cmdLe(String id, Variaveis var) {
         this.id = id;
         this.var = var;
     }
 
     @Override
-    public String generateJavaCode() {
+    public String GerarCodigo() {
         String scannerMethod;
-        if (var.getType() == TypeCompVariable.NUMBER){
+        if (var.getType() == Variaveis.NUMBER){
             scannerMethod = "nextDouble()";
-        } else if (var.getType()  == TypeCompVariable.BOOLEAN) {
-            scannerMethod = "nextBoolean()";
         } else {
             scannerMethod = "nextLine()";
         }
@@ -27,7 +26,7 @@ public class CommandRead extends AbstractCommand {
 
     @Override
     public String toString() {
-        return "CommandRead{" +
+        return "cmdLe{" +
                 "id='" + id + '\'' +
                 '}';
     }

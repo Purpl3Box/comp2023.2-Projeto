@@ -68,7 +68,7 @@ cmdEscreve
 cmdAtribui
 cmdIf
 cmdWhile
-exp
+expression
 term
 type
 

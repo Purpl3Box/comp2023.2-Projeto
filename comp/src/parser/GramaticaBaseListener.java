@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@SuppressWarnings("CheckReturnValue")
 public class GramaticaBaseListener implements GramaticaListener {
 	/**
 	 * {@inheritDoc}
@@ -83,73 +84,73 @@ public class GramaticaBaseListener implements GramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void entercmdLe(GramaticaParser.cmdLeContext ctx) { }
+	@Override public void enterCmdLe(GramaticaParser.CmdLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitcmdLe(GramaticaParser.cmdLeContext ctx) { }
+	@Override public void exitCmdLe(GramaticaParser.CmdLeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void entercmdEscreve(GramaticaParser.cmdEscreveContext ctx) { }
+	@Override public void enterCmdEscreve(GramaticaParser.CmdEscreveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitcmdEscreve(GramaticaParser.cmdEscreveContext ctx) { }
+	@Override public void exitCmdEscreve(GramaticaParser.CmdEscreveContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void entercmdAtribui(GramaticaParser.cmdAtribuiContext ctx) { }
+	@Override public void enterCmdAtribui(GramaticaParser.CmdAtribuiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitcmdAtribui(GramaticaParser.cmdAtribuiContext ctx) { }
+	@Override public void exitCmdAtribui(GramaticaParser.CmdAtribuiContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void entercmdIf(GramaticaParser.cmdIfContext ctx) { }
+	@Override public void enterCmdIf(GramaticaParser.CmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitcmdIf(GramaticaParser.cmdIfContext ctx) { }
+	@Override public void exitCmdIf(GramaticaParser.CmdIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void entercmdWhile(GramaticaParser.cmdWhileContext ctx) { }
+	@Override public void enterCmdWhile(GramaticaParser.CmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitcmdWhile(GramaticaParser.cmdWhileContext ctx) { }
+	@Override public void exitCmdWhile(GramaticaParser.CmdWhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterexp(GramaticaParser.expContext ctx) { }
+	@Override public void enterExpression(GramaticaParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitexp(GramaticaParser.expContext ctx) { }
+	@Override public void exitExpression(GramaticaParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

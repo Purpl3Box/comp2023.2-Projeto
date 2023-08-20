@@ -12,27 +12,27 @@ grammar Gramatica;
     private String _varName;
     private String _varValue;
     private List<String> _unusedVariables = new ArrayList<String>();
-    private Simbolos symbol;
-    private SimbolosTable symbolTable = new SimbolosTable();
+    private GramaticaSymbol symbol;
+    private GramaticaSymbolTable symbolTable = new GramaticaSymbolTable();
 
     private Program program = new Program();
     private ArrayList<AbstractCommand> currentThread;
 
-    private Stack<ArrayList<AbstractCommand>> allcomandos = new Stack<ArrayList<AbstractCommand>>();
+    private Stack<ArrayList<AbstractCommand>> allCommands = new Stack<ArrayList<AbstractCommand>>();
 
     private String _commandId;
-    private String _expId;
-    private String _expContent;
-    private Stack<String> _expcondicaoStack = new Stack<String>();
-    private String _expcondicao;
-    private String _expWhilecondicao;
-    private Stack<String> _expWhilecondicaoStack = new Stack<String>();
+    private String _expressionId;
+    private String _expressionContent;
+    private Stack<String> _expressionConditionStack = new Stack<String>();
+    private String _expressionCondition;
+    private String _expressionWhileCondition;
+    private Stack<String> _expressionWhileConditionStack = new Stack<String>();
     private ArrayList<AbstractCommand> TipoLista;
     private ArrayList<AbstractCommand> NaoLista;
     private ArrayList<AbstractCommand> whileList;
 
     public void exibeComandos(){
-        for (AbstractCommand c : program.getcomandos()){
+        for (AbstractCommand c : program.getCommands()){
              System.out.println(c);
         }
     }
@@ -42,19 +42,19 @@ grammar Gramatica;
 
     public void verifyID(String id) throws Exception{
        if (!symbolTable.exists(id)){
-           throw new Exception("Symbol "+id+" not declared");
+           throw new Exception("Simbolo nao declarado no input: "+id);
        }
     }
     public void verifyType(String id, int type) throws Exception{
-       if (((Variaveis) symbolTable.get(id)).getType() != type){
-           throw new Exception("Symbol "+id+" has wrong type");
+       if (((GramaticaVariable) symbolTable.get(id)).getType() != type){
+           throw new Exception("Simbolo com tipo errado: "+id);
        }
     }
 }
 
 program  : 'programa' declaration block 'fimprog;' {
     program.setVartable(symbolTable);
-    program.setcomandos(allcomandos.pop());
+    program.setCommands(allCommands.pop());
     if(_unusedVariables.size() > 0){
         System.err.println("Unused variables: "+_unusedVariables);
     }
@@ -63,10 +63,10 @@ program  : 'programa' declaration block 'fimprog;' {
 
 declaration: (declarationStatement)+;
 
-declarationStatement : 'declara' type IDENTIFIER  {
+declarationStatement : 'declara' type ID  {
 	                  _varName = _input.LT(-1).getText();
 	                  _varValue = null;
-	                  symbol = new Variaveis(_varName, _type, _varValue);
+	                  symbol = new GramaticaVariable(_varName, _type, _varValue);
 	                  if (!symbolTable.exists(_varName)){
 	                     symbolTable.add(symbol);
 	                     _unusedVariables.add(_varName);
@@ -75,11 +75,11 @@ declarationStatement : 'declara' type IDENTIFIER  {
 	                  	 throw new Exception("Symbol "+_varName+" already declared");
 	                  }
                     }
-              (  COMMA
-              	 IDENTIFIER {
+              (  VIR
+              	 ID {
 	                  _varName = _input.LT(-1).getText();
 	                  _varValue = null;
-	                  symbol = new Variaveis(_varName, _type, _varValue);
+	                  symbol = new GramaticaVariable(_varName, _type, _varValue);
 	                  if (!symbolTable.exists(_varName)){
 	                    symbolTable.add(symbol);
 	                    _unusedVariables.add(_varName);
@@ -89,12 +89,12 @@ declarationStatement : 'declara' type IDENTIFIER  {
 	                  }
                     }
               )*
-               SEMICOLON
+               SC
 ;
 
 block : {
     currentThread = new ArrayList<AbstractCommand>();
-    allcomandos.push(currentThread);
+    allCommands.push(currentThread);
 }
         (command)+
 ;
@@ -106,163 +106,163 @@ command: cmdLe
        | cmdWhile
 ;
 
-cmdLe : 'leia' OPENPARENTHESIS
-               IDENTIFIER {
+cmdLe : 'leia' AP
+               ID {
                    verifyID(_input.LT(-1).getText());
                    _commandId = _input.LT(-1).getText();
                }
-               CLOSEPARENTHESIS
-               SEMICOLON {
-                    Variaveis var = (Variaveis) symbolTable.get(_commandId);
+               FP
+               SC {
+                    GramaticaVariable var = (GramaticaVariable) symbolTable.get(_commandId);
                     cmdLe command = new cmdLe(_commandId, var);
-                    allcomandos.peek().add(command);
+                    allCommands.peek().add(command);
                }
 ;
 
-cmdEscreve: 'escreva' OPENPARENTHESIS
-                        IDENTIFIER {
+cmdEscreve: 'escreva' AP
+                        ID {
                             verifyID(_input.LT(-1).getText());
                             _commandId = _input.LT(-1).getText();
                         }
 
-                        CLOSEPARENTHESIS
-                        SEMICOLON {
+                        FP
+                        SC {
                             cmdEscreve command = new cmdEscreve(_commandId);
-                            allcomandos.peek().add(command);
+                            allCommands.peek().add(command);
                         }
 ;
 
 
-cmdAtribui: IDENTIFIER {
+cmdAtribui: ID {
                    _varName = _input.LT(-1).getText();
                    verifyID(_varName);
                    _unusedVariables.remove(_varName);
-                   _expId = _varName;
+                   _expressionId = _varName;
                }
-               ATTRIBUTION { _expContent = ""; }
-               exp
-               SEMICOLON {
+               ATTR { _expressionContent = ""; }
+               expression
+               SC {
                    verifyType(_varName, _type);
-                   cmdAtribui command = new cmdAtribui(_expId, _expContent);
-                   allcomandos.peek().add(command);
+                   cmdAtribui command = new cmdAtribui(_expressionId, _expressionContent);
+                   allCommands.peek().add(command);
                }
 ;
 
-cmdIf: 'se' OPENPARENTHESIS
+cmdIf: 'se' AP
                 (
                 (
-                (IDENTIFIER | NUMBER | TEXT) {
-                    _expcondicao = _input.LT(-1).getText();
+                (ID | NUMBER | TEXT) {
+                    _expressionCondition = _input.LT(-1).getText();
                 }
-                RELATIONALOPERATOR { _expcondicao += _input.LT(-1).getText(); }
-                (IDENTIFIER | NUMBER | TEXT) { _expcondicao += _input.LT(-1).getText(); }
+                OR { _expressionCondition += _input.LT(-1).getText(); }
+                (ID | NUMBER | TEXT) { _expressionCondition += _input.LT(-1).getText(); }
                 )
                 )
-                CLOSEPARENTHESIS {
-                    _expcondicaoStack.push(_expcondicao);
+                FP {
+                    _expressionConditionStack.push(_expressionCondition);
                 }
-                OPENBRACKETS {
+                AC {
                     currentThread = new ArrayList<AbstractCommand>();
-                    allcomandos.push(currentThread);
+                    allCommands.push(currentThread);
                 }
                 (command)+
-                CLOSEBRACKETS {
-                    TipoLista = allcomandos.pop();
+                FC {
+                    TipoLista = allCommands.pop();
                 }
                 ( 'senao'
-                  OPENBRACKETS {
+                  AC {
                       currentThread = new ArrayList<AbstractCommand>();
-                      allcomandos.push(currentThread);
+                      allCommands.push(currentThread);
                   }
                   (command)+
-                  CLOSEBRACKETS {
-                      NaoLista = allcomandos.pop();
-                      cmdIf command = new cmdIf(_expcondicaoStack.pop(), TipoLista, NaoLista);
-                      allcomandos.peek().add(command);
+                  FC {
+                      NaoLista = allCommands.pop();
+                      cmdIf command = new cmdIf(_expressionConditionStack.pop(), TipoLista, NaoLista);
+                      allCommands.peek().add(command);
                   }
                 )?
                 {
                       if(NaoLista == null){
-                          cmdIf command = new cmdIf(_expcondicaoStack.pop(), TipoLista, new ArrayList<AbstractCommand>());
-                          allcomandos.peek().add(command);
+                          cmdIf command = new cmdIf(_expressionConditionStack.pop(), TipoLista, new ArrayList<AbstractCommand>());
+                          allCommands.peek().add(command);
                       }
                       NaoLista = null;
                 }
 ;
 
-cmdWhile: 'enquanto' OPENPARENTHESIS
+cmdWhile: 'enquanto' AP
                 (
                 (
-                (IDENTIFIER | NUMBER | TEXT) { _expWhilecondicao = _input.LT(-1).getText(); }
-                RELATIONALOPERATOR { _expWhilecondicao += _input.LT(-1).getText(); }
-                (IDENTIFIER | NUMBER | TEXT) { _expWhilecondicao += _input.LT(-1).getText(); }
+                (ID | NUMBER | TEXT) { _expressionWhileCondition = _input.LT(-1).getText(); }
+                OR { _expressionWhileCondition += _input.LT(-1).getText(); }
+                (ID | NUMBER | TEXT) { _expressionWhileCondition += _input.LT(-1).getText(); }
                 )
                 )
-                CLOSEPARENTHESIS {
-                     _expWhilecondicaoStack.push(_expWhilecondicao);
+                FP {
+                     _expressionWhileConditionStack.push(_expressionWhileCondition);
                 }
-                OPENBRACKETS {
+                AC {
                     currentThread = new ArrayList<AbstractCommand>();
-                    allcomandos.push(currentThread);
+                    allCommands.push(currentThread);
                 }
                 (command)+
-                CLOSEBRACKETS {
-                    whileList = allcomandos.pop();
-                    cmdWhile command = new cmdWhile(_expWhilecondicaoStack.pop(), whileList);
-                    allcomandos.peek().add(command);
+                FC {
+                    whileList = allCommands.pop();
+                    cmdWhile command = new cmdWhile(_expressionWhileConditionStack.pop(), whileList);
+                    allCommands.peek().add(command);
                 }
 ;
 
-exp: term (OPERATOR { _expContent += _input.LT(-1).getText(); }
-            exp)? |
-            SINGLETERMOPERATOR { _expContent += _input.LT(-1).getText(); }
+expression: term (OP { _expressionContent += _input.LT(-1).getText(); }
+            expression)? |
+            SINGLETERMOPERATOR { _expressionContent += _input.LT(-1).getText(); }
             term (
-            OPERATOR { _expContent += _input.LT(-1).getText(); }
-            exp)? 
+            OP { _expressionContent += _input.LT(-1).getText(); }
+            expression)? 
 ;
 
-term: IDENTIFIER { verifyID(_input.LT(-1).getText());
-                  _type = ((Variaveis) symbolTable.get(_input.LT(-1).getText())).getType();
-                  _expContent += _input.LT(-1).getText();
+term: ID { verifyID(_input.LT(-1).getText());
+                  _type = ((GramaticaVariable) symbolTable.get(_input.LT(-1).getText())).getType();
+                  _expressionContent += _input.LT(-1).getText();
                 }
     | NUMBER {
-        _type = Variaveis.NUMBER;
-        _expContent += _input.LT(-1).getText();
+        _type = GramaticaVariable.NUMBER;
+        _expressionContent += _input.LT(-1).getText();
     }
     | TEXT {
-        _type = Variaveis.TEXT;
-        _expContent += _input.LT(-1).getText();
+        _type = GramaticaVariable.TEXT;
+        _expressionContent += _input.LT(-1).getText();
     }
 ;
 
-type: 'texto'{_type = Variaveis.TEXT;} | 'numero'{_type = Variaveis.NUMBER;};
+type: 'texto'{_type = GramaticaVariable.TEXT;} | 'numero'{_type = GramaticaVariable.NUMBER;};
 
 SINGLETERMOPERATOR  :   'raiz' | 'log';
 
-OPENPARENTHESIS	: '(';
+AP	: '(';
 
-CLOSEPARENTHESIS	: ')';
+FP	: ')';
 
-OPENBRACKETS  : '{';
+AC  : '{';
 
-CLOSEBRACKETS  : '}';
+FC  : '}';
 
-SEMICOLON	: ';';
+SC	: ';';
 
-OPERATOR	: '+' | '-' | '*' | '/' | '**';
+OP	: '+' | '-' | '*' | '/' | '**';
 
-ATTRIBUTION : '=';
+ATTR : ':=';
 
-RELATIONALOPERATOR    : '>' | '<' | '>=' | '<=' | '==' | '!=';
+OR    : '>' | '<' | '>=' | '<=' | '==' | '!=';
 
-IDENTIFIER	: [a-z] ([a-z] | [A-Z] | [0-9])*;
+ID	: [a-z] ([a-z] | [A-Z] | [0-9])*;
 
 NUMBER	: [0-9]+ ('.' [0-9]+)?;
 
-TEXT: DOUBLEQUOTE (  [a-z] | [A-Z] | [0-9] | ' ' )+ DOUBLEQUOTE;
+TEXT: AD (  [a-z] | [A-Z] | [0-9] | ' ' )+ AD;
 
-COMMA: ',';
+VIR: ',';
 
-DOUBLEQUOTE: '"';
+AD: '"';
 
-WHITESPACE	: (' ' | '\t' | '\n' | '\r') -> skip;
+WS	: (' ' | '\t' | '\n' | '\r') -> skip;

@@ -68,62 +68,62 @@ public interface GramaticaListener extends ParseTreeListener {
 	 * Enter a parse tree produced by {@link GramaticaParser#cmdLe}.
 	 * @param ctx the parse tree
 	 */
-	void entercmdLe(GramaticaParser.cmdLeContext ctx);
+	void enterCmdLe(GramaticaParser.CmdLeContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link GramaticaParser#cmdLe}.
 	 * @param ctx the parse tree
 	 */
-	void exitcmdLe(GramaticaParser.cmdLeContext ctx);
+	void exitCmdLe(GramaticaParser.CmdLeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#cmdEscreve}.
 	 * @param ctx the parse tree
 	 */
-	void entercmdEscreve(GramaticaParser.cmdEscreveContext ctx);
+	void enterCmdEscreve(GramaticaParser.CmdEscreveContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link GramaticaParser#cmdEscreve}.
 	 * @param ctx the parse tree
 	 */
-	void exitcmdEscreve(GramaticaParser.cmdEscreveContext ctx);
+	void exitCmdEscreve(GramaticaParser.CmdEscreveContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#cmdAtribui}.
 	 * @param ctx the parse tree
 	 */
-	void entercmdAtribui(GramaticaParser.cmdAtribuiContext ctx);
+	void enterCmdAtribui(GramaticaParser.CmdAtribuiContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link GramaticaParser#cmdAtribui}.
 	 * @param ctx the parse tree
 	 */
-	void exitcmdAtribui(GramaticaParser.cmdAtribuiContext ctx);
+	void exitCmdAtribui(GramaticaParser.CmdAtribuiContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#cmdIf}.
 	 * @param ctx the parse tree
 	 */
-	void entercmdIf(GramaticaParser.cmdIfContext ctx);
+	void enterCmdIf(GramaticaParser.CmdIfContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link GramaticaParser#cmdIf}.
 	 * @param ctx the parse tree
 	 */
-	void exitcmdIf(GramaticaParser.cmdIfContext ctx);
+	void exitCmdIf(GramaticaParser.CmdIfContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#cmdWhile}.
 	 * @param ctx the parse tree
 	 */
-	void entercmdWhile(GramaticaParser.cmdWhileContext ctx);
+	void enterCmdWhile(GramaticaParser.CmdWhileContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link GramaticaParser#cmdWhile}.
 	 * @param ctx the parse tree
 	 */
-	void exitcmdWhile(GramaticaParser.cmdWhileContext ctx);
+	void exitCmdWhile(GramaticaParser.CmdWhileContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GramaticaParser#exp}.
+	 * Enter a parse tree produced by {@link GramaticaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterexp(GramaticaParser.expContext ctx);
+	void enterExpression(GramaticaParser.ExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GramaticaParser#exp}.
+	 * Exit a parse tree produced by {@link GramaticaParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitexp(GramaticaParser.expContext ctx);
+	void exitExpression(GramaticaParser.ExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GramaticaParser#term}.
 	 * @param ctx the parse tree

@@ -25,26 +25,24 @@ public class GramaticaParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, SINGLETERMOPERATOR=11, AP=12, FP=13, AC=14, FC=15, SEMICOLON=16, 
-		OP=17, ATTR=18, OR=19, ID=20, NUMBER=21, TEXT=22, VIR=23, AD=24, WS=25;
+		T__9=10, RZ=11, AP=12, FP=13, AC=14, FC=15, SC=16, OP=17, ATTR=18, OR=19, 
+		ID=20, NUMBER=21, TEXT=22, VIR=23, AD=24, WS=25;
 	public static final int
-		RULE_program = 0, RULE_declaration = 1, RULE_declarationStatement = 2, 
-		RULE_block = 3, RULE_command = 4, RULE_cmdLe = 5, RULE_cmdEscreve = 6, 
-		RULE_cmdAtribui = 7, RULE_cmdIf = 8, RULE_cmdWhile = 9, RULE_expression = 10, 
-		RULE_term = 11, RULE_type = 12;
+		RULE_program = 0, RULE_declara = 1, RULE_declaracao = 2, RULE_bloco = 3, 
+		RULE_cmd = 4, RULE_cmdLeitura = 5, RULE_cmdEscrita = 6, RULE_cmdExpr = 7, 
+		RULE_cmdIf = 8, RULE_cmdWhile = 9, RULE_expr = 10, RULE_termo = 11, RULE_type = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "declaration", "declarationStatement", "block", "command", 
-			"cmdLe", "cmdEscreve", "cmdAtribui", "cmdIf", "cmdWhile", "expression", 
-			"term", "type"
+			"program", "declara", "declaracao", "bloco", "cmd", "cmdLeitura", "cmdEscrita", 
+			"cmdExpr", "cmdIf", "cmdWhile", "expr", "termo", "type"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'programa'", "'fimprog;'", "'declara'", "'leia'", "'escreva'", 
-			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", null, "'('", 
+			null, "'programa'", "'fimprog;'", "'declare'", "'leia'", "'escreva'", 
+			"'se'", "'senao'", "'enquanto'", "'texto'", "'numero'", "'raiz'", "'('", 
 			"')'", "'{'", "'}'", "';'", null, "':='", null, null, null, null, "','", 
 			"'\"'"
 		};
@@ -52,9 +50,9 @@ public class GramaticaParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, "SINGLETERMOPERATOR", 
-			"AP", "FP", "AC", "FC", "SEMICOLON", "OP", "ATTR", "OR", "ID", "NUMBER", 
-			"TEXT", "VIR", "AD", "WS"
+			null, null, null, null, null, null, null, null, null, null, null, "RZ", 
+			"AP", "FP", "AC", "FC", "SC", "OP", "ATTR", "OR", "ID", "NUMBER", "TEXT", 
+			"VIR", "AD", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -104,17 +102,17 @@ public class GramaticaParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	    private int _type;
+	    private int _tipo;
 	    private String _varName;
 	    private String _varValue;
-	    private List<String> _unusedVariables = new ArrayList<String>();
+	    private List<String> _variaveisSemUso = new ArrayList<String>();
 	    private Simbolos symbol;
 	    private SimbolosTable symbolTable = new SimbolosTable();
 
 	    private Program program = new Program();
 	    private ArrayList<AbstractCommand> currentThread;
 
-	    private Stack<ArrayList<AbstractCommand>> allCommands = new Stack<ArrayList<AbstractCommand>>();
+	    private Stack<ArrayList<AbstractCommand>> allcomandos = new Stack<ArrayList<AbstractCommand>>();
 
 	    private String _commandId;
 	    private String _expressionId;
@@ -138,12 +136,12 @@ public class GramaticaParser extends Parser {
 
 	    public void verifyID(String id) throws Exception{
 	       if (!symbolTable.exists(id)){
-	           throw new Exception("Symbol "+id+" not declared");
+	           throw new Exception("Simbolo nao declarado no input: "+id);
 	       }
 	    }
 	    public void verifyType(String id, int type) throws Exception{
 	       if (((Variaveis) symbolTable.get(id)).getType() != type){
-	           throw new Exception("Symbol "+id+" has wrong type");
+	           throw new Exception("Simbolo com tipo errado: "+id);
 	       }
 	    }
 
@@ -154,11 +152,11 @@ public class GramaticaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramContext extends ParserRuleContext {
-		public DeclarationContext declaration() {
-			return getRuleContext(DeclarationContext.class,0);
+		public DeclaraContext declara() {
+			return getRuleContext(DeclaraContext.class,0);
 		}
-		public BlockContext block() {
-			return getRuleContext(BlockContext.class,0);
+		public BlocoContext bloco() {
+			return getRuleContext(BlocoContext.class,0);
 		}
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -183,16 +181,16 @@ public class GramaticaParser extends Parser {
 			setState(26);
 			match(T__0);
 			setState(27);
-			declaration();
+			declara();
 			setState(28);
-			block();
+			bloco();
 			setState(29);
 			match(T__1);
 
 			    program.setVartable(symbolTable);
-			    program.setcomandos(allCommands.pop());
-			    if(_unusedVariables.size() > 0){
-			        System.err.println("Unused variables: "+_unusedVariables);
+			    program.setcomandos(allcomandos.pop());
+			    if(_variaveisSemUso.size() > 0){
+			        System.err.println("Variaveis sem uso: "+_variaveisSemUso);
 			    }
 
 			}
@@ -209,30 +207,30 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class DeclarationContext extends ParserRuleContext {
-		public List<DeclarationStatementContext> declarationStatement() {
-			return getRuleContexts(DeclarationStatementContext.class);
+	public static class DeclaraContext extends ParserRuleContext {
+		public List<DeclaracaoContext> declaracao() {
+			return getRuleContexts(DeclaracaoContext.class);
 		}
-		public DeclarationStatementContext declarationStatement(int i) {
-			return getRuleContext(DeclarationStatementContext.class,i);
+		public DeclaracaoContext declaracao(int i) {
+			return getRuleContext(DeclaracaoContext.class,i);
 		}
-		public DeclarationContext(ParserRuleContext parent, int invokingState) {
+		public DeclaraContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declaration; }
+		@Override public int getRuleIndex() { return RULE_declara; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclaration(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclara(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclaration(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclara(this);
 		}
 	}
 
-	public final DeclarationContext declaration() throws Exception {
-		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_declaration);
+	public final DeclaraContext declara() throws Exception {
+		DeclaraContext _localctx = new DeclaraContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_declara);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -244,7 +242,7 @@ public class GramaticaParser extends Parser {
 				{
 				{
 				setState(32);
-				declarationStatement();
+				declaracao();
 				}
 				}
 				setState(35); 
@@ -265,7 +263,7 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class DeclarationStatementContext extends ParserRuleContext {
+	public static class DeclaracaoContext extends ParserRuleContext {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -273,28 +271,28 @@ public class GramaticaParser extends Parser {
 		public TerminalNode ID(int i) {
 			return getToken(GramaticaParser.ID, i);
 		}
-		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
+		public TerminalNode SC() { return getToken(GramaticaParser.SC, 0); }
 		public List<TerminalNode> VIR() { return getTokens(GramaticaParser.VIR); }
 		public TerminalNode VIR(int i) {
 			return getToken(GramaticaParser.VIR, i);
 		}
-		public DeclarationStatementContext(ParserRuleContext parent, int invokingState) {
+		public DeclaracaoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_declarationStatement; }
+		@Override public int getRuleIndex() { return RULE_declaracao; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclarationStatement(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterDeclaracao(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclarationStatement(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitDeclaracao(this);
 		}
 	}
 
-	public final DeclarationStatementContext declarationStatement() throws Exception {
-		DeclarationStatementContext _localctx = new DeclarationStatementContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_declarationStatement);
+	public final DeclaracaoContext declaracao() throws Exception {
+		DeclaracaoContext _localctx = new DeclaracaoContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_declaracao);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -308,13 +306,13 @@ public class GramaticaParser extends Parser {
 
 				                  _varName = _input.LT(-1).getText();
 				                  _varValue = null;
-				                  symbol = new Variaveis(_varName, _type, _varValue);
+				                  symbol = new Variaveis(_varName, _tipo, _varValue);
 				                  if (!symbolTable.exists(_varName)){
 				                     symbolTable.add(symbol);
-				                     _unusedVariables.add(_varName);
+				                     _variaveisSemUso.add(_varName);
 				                  }
 				                  else{
-				                  	 throw new Exception("Symbol "+_varName+" already declared");
+				                  	 throw new Exception("Variavel ja declarada: " +_varName);
 				                  }
 			                    
 			setState(46);
@@ -330,13 +328,13 @@ public class GramaticaParser extends Parser {
 
 					                  _varName = _input.LT(-1).getText();
 					                  _varValue = null;
-					                  symbol = new Variaveis(_varName, _type, _varValue);
+					                  symbol = new Variaveis(_varName, _tipo, _varValue);
 					                  if (!symbolTable.exists(_varName)){
 					                    symbolTable.add(symbol);
-					                    _unusedVariables.add(_varName);
+					                    _variaveisSemUso.add(_varName);
 					                  }
 					                  else{
-					                  	 throw new Exception("Symbol "+_varName+" already declared");
+					                  	 throw new Exception("Variavel ja declarada: " +_varName);
 					                  }
 				                    
 				}
@@ -346,7 +344,7 @@ public class GramaticaParser extends Parser {
 				_la = _input.LA(1);
 			}
 			setState(49);
-			match(SEMICOLON);
+			match(SC);
 			}
 		}
 		catch (RecognitionException re) {
@@ -361,37 +359,37 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class BlockContext extends ParserRuleContext {
-		public List<CommandContext> command() {
-			return getRuleContexts(CommandContext.class);
+	public static class BlocoContext extends ParserRuleContext {
+		public List<CmdContext> cmd() {
+			return getRuleContexts(CmdContext.class);
 		}
-		public CommandContext command(int i) {
-			return getRuleContext(CommandContext.class,i);
+		public CmdContext cmd(int i) {
+			return getRuleContext(CmdContext.class,i);
 		}
-		public BlockContext(ParserRuleContext parent, int invokingState) {
+		public BlocoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_block; }
+		@Override public int getRuleIndex() { return RULE_bloco; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterBlock(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterBloco(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitBlock(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitBloco(this);
 		}
 	}
 
-	public final BlockContext block() throws Exception {
-		BlockContext _localctx = new BlockContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_block);
+	public final BlocoContext bloco() throws Exception {
+		BlocoContext _localctx = new BlocoContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_bloco);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 
 			    currentThread = new ArrayList<AbstractCommand>();
-			    allCommands.push(currentThread);
+			    allcomandos.push(currentThread);
 
 			setState(53); 
 			_errHandler.sync(this);
@@ -400,7 +398,7 @@ public class GramaticaParser extends Parser {
 				{
 				{
 				setState(52);
-				command();
+				cmd();
 				}
 				}
 				setState(55); 
@@ -421,15 +419,15 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class CommandContext extends ParserRuleContext {
-		public CmdLeContext cmdLe() {
-			return getRuleContext(CmdLeContext.class,0);
+	public static class CmdContext extends ParserRuleContext {
+		public CmdLeituraContext cmdLeitura() {
+			return getRuleContext(CmdLeituraContext.class,0);
 		}
-		public CmdEscreveContext cmdEscreve() {
-			return getRuleContext(CmdEscreveContext.class,0);
+		public CmdEscritaContext cmdEscrita() {
+			return getRuleContext(CmdEscritaContext.class,0);
 		}
-		public CmdAtribuiContext cmdAtribui() {
-			return getRuleContext(CmdAtribuiContext.class,0);
+		public CmdExprContext cmdExpr() {
+			return getRuleContext(CmdExprContext.class,0);
 		}
 		public CmdIfContext cmdIf() {
 			return getRuleContext(CmdIfContext.class,0);
@@ -437,23 +435,23 @@ public class GramaticaParser extends Parser {
 		public CmdWhileContext cmdWhile() {
 			return getRuleContext(CmdWhileContext.class,0);
 		}
-		public CommandContext(ParserRuleContext parent, int invokingState) {
+		public CmdContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_command; }
+		@Override public int getRuleIndex() { return RULE_cmd; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCommand(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCommand(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmd(this);
 		}
 	}
 
-	public final CommandContext command() throws Exception {
-		CommandContext _localctx = new CommandContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_command);
+	public final CmdContext cmd() throws Exception {
+		CmdContext _localctx = new CmdContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_cmd);
 		try {
 			setState(62);
 			_errHandler.sync(this);
@@ -462,21 +460,21 @@ public class GramaticaParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(57);
-				cmdLe();
+				cmdLeitura();
 				}
 				break;
 			case T__4:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(58);
-				cmdEscreve();
+				cmdEscrita();
 				}
 				break;
 			case ID:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(59);
-				cmdAtribui();
+				cmdExpr();
 				}
 				break;
 			case T__5:
@@ -509,28 +507,28 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class CmdLeContext extends ParserRuleContext {
+	public static class CmdLeituraContext extends ParserRuleContext {
 		public TerminalNode AP() { return getToken(GramaticaParser.AP, 0); }
 		public TerminalNode ID() { return getToken(GramaticaParser.ID, 0); }
 		public TerminalNode FP() { return getToken(GramaticaParser.FP, 0); }
-		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
-		public CmdLeContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode SC() { return getToken(GramaticaParser.SC, 0); }
+		public CmdLeituraContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdLe; }
+		@Override public int getRuleIndex() { return RULE_cmdLeitura; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdLe(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdLeitura(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdLe(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdLeitura(this);
 		}
 	}
 
-	public final CmdLeContext cmdLe() throws Exception {
-		CmdLeContext _localctx = new CmdLeContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_cmdLe);
+	public final CmdLeituraContext cmdLeitura() throws Exception {
+		CmdLeituraContext _localctx = new CmdLeituraContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_cmdLeitura);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -547,11 +545,11 @@ public class GramaticaParser extends Parser {
 			setState(68);
 			match(FP);
 			setState(69);
-			match(SEMICOLON);
+			match(SC);
 
 			                    Variaveis var = (Variaveis) symbolTable.get(_commandId);
 			                    cmdLe command = new cmdLe(_commandId, var);
-			                    allCommands.peek().add(command);
+			                    allcomandos.peek().add(command);
 			               
 			}
 		}
@@ -567,28 +565,28 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class CmdEscreveContext extends ParserRuleContext {
+	public static class CmdEscritaContext extends ParserRuleContext {
 		public TerminalNode AP() { return getToken(GramaticaParser.AP, 0); }
 		public TerminalNode ID() { return getToken(GramaticaParser.ID, 0); }
 		public TerminalNode FP() { return getToken(GramaticaParser.FP, 0); }
-		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
-		public CmdEscreveContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode SC() { return getToken(GramaticaParser.SC, 0); }
+		public CmdEscritaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdEscreve; }
+		@Override public int getRuleIndex() { return RULE_cmdEscrita; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdEscreve(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdEscrita(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdEscreve(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdEscrita(this);
 		}
 	}
 
-	public final CmdEscreveContext cmdEscreve() throws Exception {
-		CmdEscreveContext _localctx = new CmdEscreveContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_cmdEscreve);
+	public final CmdEscritaContext cmdEscrita() throws Exception {
+		CmdEscritaContext _localctx = new CmdEscritaContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_cmdEscrita);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -605,10 +603,10 @@ public class GramaticaParser extends Parser {
 			setState(76);
 			match(FP);
 			setState(77);
-			match(SEMICOLON);
+			match(SC);
 
 			                            cmdEscreve command = new cmdEscreve(_commandId);
-			                            allCommands.peek().add(command);
+			                            allcomandos.peek().add(command);
 			                        
 			}
 		}
@@ -624,30 +622,30 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class CmdAtribuiContext extends ParserRuleContext {
+	public static class CmdExprContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(GramaticaParser.ID, 0); }
 		public TerminalNode ATTR() { return getToken(GramaticaParser.ATTR, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
-		public TerminalNode SEMICOLON() { return getToken(GramaticaParser.SEMICOLON, 0); }
-		public CmdAtribuiContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode SC() { return getToken(GramaticaParser.SC, 0); }
+		public CmdExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_cmdAtribui; }
+		@Override public int getRuleIndex() { return RULE_cmdExpr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdAtribui(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterCmdExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdAtribui(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitCmdExpr(this);
 		}
 	}
 
-	public final CmdAtribuiContext cmdAtribui() throws Exception {
-		CmdAtribuiContext _localctx = new CmdAtribuiContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_cmdAtribui);
+	public final CmdExprContext cmdExpr() throws Exception {
+		CmdExprContext _localctx = new CmdExprContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_cmdExpr);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -656,20 +654,20 @@ public class GramaticaParser extends Parser {
 
 			                   _varName = _input.LT(-1).getText();
 			                   verifyID(_varName);
-			                   _unusedVariables.remove(_varName);
+			                   _variaveisSemUso.remove(_varName);
 			                   _expressionId = _varName;
 			               
 			setState(82);
 			match(ATTR);
 			 _expressionContent = ""; 
 			setState(84);
-			expression();
+			expr();
 			setState(85);
-			match(SEMICOLON);
+			match(SC);
 
-			                   verifyType(_varName, _type);
+			                   verifyType(_varName, _tipo);
 			                   cmdAtribui command = new cmdAtribui(_expressionId, _expressionContent);
-			                   allCommands.peek().add(command);
+			                   allcomandos.peek().add(command);
 			               
 			}
 		}
@@ -696,11 +694,11 @@ public class GramaticaParser extends Parser {
 		public TerminalNode FC(int i) {
 			return getToken(GramaticaParser.FC, i);
 		}
-		public List<CommandContext> command() {
-			return getRuleContexts(CommandContext.class);
+		public List<CmdContext> cmd() {
+			return getRuleContexts(CmdContext.class);
 		}
-		public CommandContext command(int i) {
-			return getRuleContext(CommandContext.class,i);
+		public CmdContext cmd(int i) {
+			return getRuleContext(CmdContext.class,i);
 		}
 		public TerminalNode OR() { return getToken(GramaticaParser.OR, 0); }
 		public List<TerminalNode> ID() { return getTokens(GramaticaParser.ID); }
@@ -780,7 +778,7 @@ public class GramaticaParser extends Parser {
 			match(AC);
 
 			                    currentThread = new ArrayList<AbstractCommand>();
-			                    allCommands.push(currentThread);
+			                    allcomandos.push(currentThread);
 			                
 			setState(102); 
 			_errHandler.sync(this);
@@ -789,7 +787,7 @@ public class GramaticaParser extends Parser {
 				{
 				{
 				setState(101);
-				command();
+				cmd();
 				}
 				}
 				setState(104); 
@@ -799,7 +797,7 @@ public class GramaticaParser extends Parser {
 			setState(106);
 			match(FC);
 
-			                    TipoLista = allCommands.pop();
+			                    TipoLista = allcomandos.pop();
 			                
 			setState(119);
 			_errHandler.sync(this);
@@ -812,7 +810,7 @@ public class GramaticaParser extends Parser {
 				match(AC);
 
 				                      currentThread = new ArrayList<AbstractCommand>();
-				                      allCommands.push(currentThread);
+				                      allcomandos.push(currentThread);
 				                  
 				setState(112); 
 				_errHandler.sync(this);
@@ -821,7 +819,7 @@ public class GramaticaParser extends Parser {
 					{
 					{
 					setState(111);
-					command();
+					cmd();
 					}
 					}
 					setState(114); 
@@ -831,9 +829,9 @@ public class GramaticaParser extends Parser {
 				setState(116);
 				match(FC);
 
-				                      NaoLista = allCommands.pop();
+				                      NaoLista = allcomandos.pop();
 				                      cmdIf command = new cmdIf(_expressionConditionStack.pop(), TipoLista, NaoLista);
-				                      allCommands.peek().add(command);
+				                      allcomandos.peek().add(command);
 				                  
 				}
 			}
@@ -841,7 +839,7 @@ public class GramaticaParser extends Parser {
 
 			                      if(NaoLista == null){
 			                          cmdIf command = new cmdIf(_expressionConditionStack.pop(), TipoLista, new ArrayList<AbstractCommand>());
-			                          allCommands.peek().add(command);
+			                          allcomandos.peek().add(command);
 			                      }
 			                      NaoLista = null;
 			                
@@ -864,11 +862,11 @@ public class GramaticaParser extends Parser {
 		public TerminalNode FP() { return getToken(GramaticaParser.FP, 0); }
 		public TerminalNode AC() { return getToken(GramaticaParser.AC, 0); }
 		public TerminalNode FC() { return getToken(GramaticaParser.FC, 0); }
-		public List<CommandContext> command() {
-			return getRuleContexts(CommandContext.class);
+		public List<CmdContext> cmd() {
+			return getRuleContexts(CmdContext.class);
 		}
-		public CommandContext command(int i) {
-			return getRuleContext(CommandContext.class,i);
+		public CmdContext cmd(int i) {
+			return getRuleContext(CmdContext.class,i);
 		}
 		public TerminalNode OR() { return getToken(GramaticaParser.OR, 0); }
 		public List<TerminalNode> ID() { return getTokens(GramaticaParser.ID); }
@@ -946,7 +944,7 @@ public class GramaticaParser extends Parser {
 			match(AC);
 
 			                    currentThread = new ArrayList<AbstractCommand>();
-			                    allCommands.push(currentThread);
+			                    allcomandos.push(currentThread);
 			                
 			setState(137); 
 			_errHandler.sync(this);
@@ -955,7 +953,7 @@ public class GramaticaParser extends Parser {
 				{
 				{
 				setState(136);
-				command();
+				cmd();
 				}
 				}
 				setState(139); 
@@ -965,9 +963,9 @@ public class GramaticaParser extends Parser {
 			setState(141);
 			match(FC);
 
-			                    whileList = allCommands.pop();
+			                    whileList = allcomandos.pop();
 			                    cmdWhile command = new cmdWhile(_expressionWhileConditionStack.pop(), whileList);
-			                    allCommands.peek().add(command);
+			                    allcomandos.peek().add(command);
 			                
 			}
 		}
@@ -983,32 +981,32 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class ExpressionContext extends ParserRuleContext {
-		public TermContext term() {
-			return getRuleContext(TermContext.class,0);
+	public static class ExprContext extends ParserRuleContext {
+		public TermoContext termo() {
+			return getRuleContext(TermoContext.class,0);
 		}
 		public TerminalNode OP() { return getToken(GramaticaParser.OP, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
-		public TerminalNode SINGLETERMOPERATOR() { return getToken(GramaticaParser.SINGLETERMOPERATOR, 0); }
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode RZ() { return getToken(GramaticaParser.RZ, 0); }
+		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override public int getRuleIndex() { return RULE_expr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterExpression(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitExpression(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitExpr(this);
 		}
 	}
 
-	public final ExpressionContext expression() throws Exception {
-		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_expression);
+	public final ExprContext expr() throws Exception {
+		ExprContext _localctx = new ExprContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_expr);
 		int _la;
 		try {
 			setState(158);
@@ -1020,7 +1018,7 @@ public class GramaticaParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(144);
-				term();
+				termo();
 				setState(148);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1030,20 +1028,20 @@ public class GramaticaParser extends Parser {
 					match(OP);
 					 _expressionContent += _input.LT(-1).getText(); 
 					setState(147);
-					expression();
+					expr();
 					}
 				}
 
 				}
 				break;
-			case SINGLETERMOPERATOR:
+			case RZ:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(150);
-				match(SINGLETERMOPERATOR);
+				match(RZ);
 				 _expressionContent += _input.LT(-1).getText(); 
 				setState(152);
-				term();
+				termo();
 				setState(156);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1053,7 +1051,7 @@ public class GramaticaParser extends Parser {
 					match(OP);
 					 _expressionContent += _input.LT(-1).getText(); 
 					setState(155);
-					expression();
+					expr();
 					}
 				}
 
@@ -1075,27 +1073,27 @@ public class GramaticaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class TermContext extends ParserRuleContext {
+	public static class TermoContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(GramaticaParser.ID, 0); }
 		public TerminalNode NUMBER() { return getToken(GramaticaParser.NUMBER, 0); }
 		public TerminalNode TEXT() { return getToken(GramaticaParser.TEXT, 0); }
-		public TermContext(ParserRuleContext parent, int invokingState) {
+		public TermoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_term; }
+		@Override public int getRuleIndex() { return RULE_termo; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterTerm(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).enterTermo(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitTerm(this);
+			if ( listener instanceof GramaticaListener ) ((GramaticaListener)listener).exitTermo(this);
 		}
 	}
 
-	public final TermContext term() throws Exception {
-		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_term);
+	public final TermoContext termo() throws Exception {
+		TermoContext _localctx = new TermoContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_termo);
 		try {
 			setState(166);
 			_errHandler.sync(this);
@@ -1106,7 +1104,7 @@ public class GramaticaParser extends Parser {
 				setState(160);
 				match(ID);
 				 verifyID(_input.LT(-1).getText());
-				                  _type = ((Variaveis) symbolTable.get(_input.LT(-1).getText())).getType();
+				                  _tipo = ((Variaveis) symbolTable.get(_input.LT(-1).getText())).getType();
 				                  _expressionContent += _input.LT(-1).getText();
 				                
 				}
@@ -1117,7 +1115,7 @@ public class GramaticaParser extends Parser {
 				setState(162);
 				match(NUMBER);
 
-				        _type = Variaveis.NUMBER;
+				        _tipo = Variaveis.NUMBER;
 				        _expressionContent += _input.LT(-1).getText();
 				    
 				}
@@ -1128,7 +1126,7 @@ public class GramaticaParser extends Parser {
 				setState(164);
 				match(TEXT);
 
-				        _type = Variaveis.TEXT;
+				        _tipo = Variaveis.TEXT;
 				        _expressionContent += _input.LT(-1).getText();
 				    
 				}
@@ -1176,7 +1174,7 @@ public class GramaticaParser extends Parser {
 				{
 				setState(168);
 				match(T__8);
-				_type = Variaveis.TEXT;
+				_tipo = Variaveis.TEXT;
 				}
 				break;
 			case T__9:
@@ -1184,7 +1182,7 @@ public class GramaticaParser extends Parser {
 				{
 				setState(170);
 				match(T__9);
-				_type = Variaveis.NUMBER;
+				_tipo = Variaveis.NUMBER;
 				}
 				break;
 			default:

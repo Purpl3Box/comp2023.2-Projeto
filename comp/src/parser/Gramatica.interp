@@ -2,7 +2,7 @@ token literal names:
 null
 'programa'
 'fimprog;'
-'declara'
+'declare'
 'leia'
 'escreva'
 'se'
@@ -10,7 +10,7 @@ null
 'enquanto'
 'texto'
 'numero'
-null
+'raiz'
 '('
 ')'
 '{'
@@ -38,12 +38,12 @@ null
 null
 null
 null
-SINGLETERMOPERATOR
+RZ
 AP
 FP
 AC
 FC
-SEMICOLON
+SC
 OP
 ATTR
 OR
@@ -56,17 +56,17 @@ WS
 
 rule names:
 program
-declaration
-declarationStatement
-block
-command
-cmdLe
-cmdEscreve
-cmdAtribui
+declara
+declaracao
+bloco
+cmd
+cmdLeitura
+cmdEscrita
+cmdExpr
 cmdIf
 cmdWhile
-expression
-term
+expr
+termo
 type
 
 

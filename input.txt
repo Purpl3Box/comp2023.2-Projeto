@@ -1,8 +1,8 @@
 programa
-declara texto t1;
-declara numero b;
+declare texto t1;
+declare numero b;
 t1 := "compiladores forever";
-b := 45;
+b := 55.3;
 enquanto(b > 0){
     escreva(t1);
 }

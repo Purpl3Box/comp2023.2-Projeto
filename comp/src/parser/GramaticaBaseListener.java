@@ -36,85 +36,85 @@ public class GramaticaBaseListener implements GramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(GramaticaParser.DeclarationContext ctx) { }
+	@Override public void enterDeclara(GramaticaParser.DeclaraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(GramaticaParser.DeclarationContext ctx) { }
+	@Override public void exitDeclara(GramaticaParser.DeclaraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarationStatement(GramaticaParser.DeclarationStatementContext ctx) { }
+	@Override public void enterDeclaracao(GramaticaParser.DeclaracaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarationStatement(GramaticaParser.DeclarationStatementContext ctx) { }
+	@Override public void exitDeclaracao(GramaticaParser.DeclaracaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(GramaticaParser.BlockContext ctx) { }
+	@Override public void enterBloco(GramaticaParser.BlocoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(GramaticaParser.BlockContext ctx) { }
+	@Override public void exitBloco(GramaticaParser.BlocoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommand(GramaticaParser.CommandContext ctx) { }
+	@Override public void enterCmd(GramaticaParser.CmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommand(GramaticaParser.CommandContext ctx) { }
+	@Override public void exitCmd(GramaticaParser.CmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdLe(GramaticaParser.CmdLeContext ctx) { }
+	@Override public void enterCmdLeitura(GramaticaParser.CmdLeituraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdLe(GramaticaParser.CmdLeContext ctx) { }
+	@Override public void exitCmdLeitura(GramaticaParser.CmdLeituraContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdEscreve(GramaticaParser.CmdEscreveContext ctx) { }
+	@Override public void enterCmdEscrita(GramaticaParser.CmdEscritaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdEscreve(GramaticaParser.CmdEscreveContext ctx) { }
+	@Override public void exitCmdEscrita(GramaticaParser.CmdEscritaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCmdAtribui(GramaticaParser.CmdAtribuiContext ctx) { }
+	@Override public void enterCmdExpr(GramaticaParser.CmdExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCmdAtribui(GramaticaParser.CmdAtribuiContext ctx) { }
+	@Override public void exitCmdExpr(GramaticaParser.CmdExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -144,25 +144,25 @@ public class GramaticaBaseListener implements GramaticaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(GramaticaParser.ExpressionContext ctx) { }
+	@Override public void enterExpr(GramaticaParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(GramaticaParser.ExpressionContext ctx) { }
+	@Override public void exitExpr(GramaticaParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(GramaticaParser.TermContext ctx) { }
+	@Override public void enterTermo(GramaticaParser.TermoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(GramaticaParser.TermContext ctx) { }
+	@Override public void exitTermo(GramaticaParser.TermoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
